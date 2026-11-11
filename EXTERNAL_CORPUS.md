@@ -52,4 +52,4 @@ python datahub/scripts/qs/extract_statements.py   # 可选：抽取论断与金�
 
 ## 五、权利人通知
 
-如权利人认为本仓库存在不当内容，请邮件联系 wilhelmwang@163.com。经核实后，本项目将在 72 小时内移除相关材料或链接。
+如权利人认为本仓库存在不当内容，请邮件联系 waster9001@gmail.com。经核实后，本项目将在 72 小时内移除相关材料或链接。

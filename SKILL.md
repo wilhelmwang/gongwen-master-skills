@@ -24,7 +24,7 @@ permissions:
   fs_write: "无强制写路径；用户数据（style-models）写在技能根下"
   network: "默认无网络；团队模式 LLM 评审经 GONGWEN_LLM_ENDPOINT（默认 opencode.ai，可本地网关）"
   secrets: "仅从环境变量读取 GONGWEN_LLM_KEY / OPENCODE_GO_API_KEY，代码不落盘密钥"
-copyright: "Gongwen Master Contributors © Apache-2.0 | wilhelmwang@163.com"
+copyright: "Gongwen Master Contributors © Apache-2.0 | waster9001@gmail.com"
 
 ---
 
