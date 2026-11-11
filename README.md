@@ -245,3 +245,12 @@ gongwen-master/
 代码、文档与技能定义采用 [Apache License 2.0](LICENSE)，版权归 Gongwen Master Contributors。
 
 随包数据为公开发布的行政性质文件，本项目不主张著作权，保留原始来源与链接。欢迎提交 Issue 反馈问题，也欢迎 PR 补充文种模块与文风样本。
+
+## 十、联系
+
+| 用途 | 渠道 |
+|---|---|
+| 问题反馈、功能建议 | [GitHub Issues](https://github.com/wilhelmwang/gongwen-master-skills/issues) |
+| 授权、合作、权利人通知 | wilhelmwang@163.com |
+
+收到权利人异议后，本项目将在 72 小时内核实并移除相关内容。
