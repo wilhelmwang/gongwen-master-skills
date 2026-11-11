@@ -1,0 +1,18 @@
+# 公文大师独立包依赖清单（requirements.txt）
+# 安装：pip install -r requirements.txt
+
+# === 政策底座 qiushi-db（求是文章检索）===
+jieba>=0.42.1
+numpy>=1.24
+scikit-learn>=1.3
+rank-bm25>=0.2.2
+
+# === 文件交付层（v7.0 govdoc-layout 导出模式）===
+python-docx>=1.1
+
+# === 本地数据底座 hs-data-db（地方数据检索）===
+# 核心零依赖（标准库+sqlite3），jieba 为可选增强（FTS 快 107 倍）
+
+# === ARIMA 预测（可选，数据维护用）===
+# statsmodels>=0.14
+# pandas>=2.0

@@ -1,0 +1,7 @@
+interface:
+  display_name: "理论文章写作"
+  short_description: "面向机关单位常用公文材料场景的AI辅助写作专项技能"
+  brand_color: "#1F6FEB"
+  default_prompt: "Use $govdoc-theory to develop a theory article topic, argument, and draft."
+policy:
+  allow_implicit_invocation: true

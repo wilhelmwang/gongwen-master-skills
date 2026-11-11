@@ -1,0 +1,486 @@
+{
+ "schema": "1.0",
+ "generated_at": "2026-09-29 22:50",
+ "package": {
+  "name": "gongwen-skills",
+  "version": "8.1.10"
+ },
+ "skills": [
+  {
+   "name": "gongwen-master",
+   "dir": "gongwen-master",
+   "version": "8.1.10",
+   "display_name": "公文写作大师",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "engine": "datahub/scripts/qs/qiushi_engine.py（求是检索）",
+    "data": "外置数据根 <数据根>/gongwen_corpus.db（求是+地方合并库，749.6MB/49 表）+ datahub/derived/（索引/向量/论断/金句）；物理路径统一经 datahub/paths.py 解析（GONGWEN_DATA_ROOT 可覆盖）",
+    "deps": "jieba, numpy, scikit-learn, rank-bm25, python-docx（requirements.txt；docx 用于 v7.0 导出模式）",
+    "env": "GONGWEN_BGE_MODEL（可选，向量路）；GONGWEN_LLM_KEY 或 OPENCODE_GO_API_KEY（团队模式 LLM 评审）",
+    "subskills": "包内嵌套模块 references/{govdoc-*(22 受治理 + 3 master 自带), govdoc-styles, shuji, article-review, qiushi-db, install-gongwen}/SKILL.md（29 个一级模块全量随包分发；缺任一走保底框架）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-circular",
+   "dir": "govdoc-circular",
+   "version": "2.0.0",
+   "display_name": "公文·通报简报专报写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-duty",
+   "dir": "govdoc-duty",
+   "version": "2.0.0",
+   "display_name": "公文·任免人事写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-experience",
+   "dir": "govdoc-experience",
+   "version": "2.0.0",
+   "display_name": "公文·经验材料写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-letter",
+   "dir": "govdoc-letter",
+   "version": "2.0.0",
+   "display_name": "公文·信函公开信写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-minutes",
+   "dir": "govdoc-minutes",
+   "version": "2.0.0",
+   "display_name": "公文·会议纪要写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-news",
+   "dir": "govdoc-news",
+   "version": "2.0.0",
+   "display_name": "公文·新闻稿写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-notice",
+   "dir": "govdoc-notice",
+   "version": "2.0.0",
+   "display_name": "公文·通知写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-plan",
+   "dir": "govdoc-plan",
+   "version": "2.0.0",
+   "display_name": "公文·计划方案写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-reflection",
+   "dir": "govdoc-reflection",
+   "version": "2.0.0",
+   "display_name": "公文·心得体会写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-regulation",
+   "dir": "govdoc-regulation",
+   "version": "2.1.0",
+   "display_name": "公文·制度规定办法写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-report",
+   "dir": "govdoc-report",
+   "version": "2.0.0",
+   "display_name": "公文·报告写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-request",
+   "dir": "govdoc-request",
+   "version": "2.1.0",
+   "display_name": "公文·请示批复写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-research",
+   "dir": "govdoc-research",
+   "version": "2.0.0",
+   "display_name": "公文·调研报告写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-speech",
+   "dir": "govdoc-speech",
+   "version": "2.0.0",
+   "display_name": "公文·讲话稿写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-summary",
+   "dir": "govdoc-summary",
+   "version": "2.0.0",
+   "display_name": "公文·总结写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-theory",
+   "dir": "govdoc-theory",
+   "version": "2.0.0",
+   "display_name": "公文·理论文章写作",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-polish",
+   "dir": "govdoc-polish",
+   "version": "1.1.0",
+   "display_name": "公文·公文润色质检",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-layout",
+   "dir": "govdoc-layout",
+   "version": "2.2.0",
+   "display_name": "公文·公文排版流程",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）",
+    "deps": "python-docx（导出模式，requirements.txt）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-material",
+   "dir": "govdoc-material",
+   "version": "1.0.0",
+   "display_name": "公文·以稿写稿（材料摄取与重组）",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；材料解析推荐配合 convert-documents-to-markdown 技能（docx/pdf/xlsx/doc 等 → Markdown）；本技能为提示词工程技能，不依赖 Python 引擎与外部数据层",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "skills": "convert-documents-to-markdown（材料格式解析，可选但推荐）；目标文种技能（重组时参考其体例公式文件）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-corpus",
+   "dir": "govdoc-corpus",
+   "version": "1.0.1",
+   "display_name": "公文·单位私有语料接入",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 jieba（已在 requirements.txt）；docx 解析为纯标准库实现（zipfile + XML），.doc 需先经 convert-documents-to-markdown 转换",
+   "requires": {
+    "master": "gongwen-master（路由流程与六步法）",
+    "skills": "convert-documents-to-markdown（.doc/.pdf/扫描件转换，可选）",
+    "engine": "scripts/corpus_build.py（纯本地，无外部依赖、无网络）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-styles",
+   "dir": "govdoc-styles",
+   "version": "6.9.0",
+   "display_name": "政务文风 · 六风格与会诊模式",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "references": "references/ 子模块方法论文件（随包）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "shuji",
+   "dir": "shuji",
+   "version": "6.8.0",
+   "display_name": "书籍行文 · 九风格合一",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "references": "references/ 子模块方法论文件（随包）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "govdoc-workflow",
+   "dir": "govdoc-workflow",
+   "version": "1.3.0",
+   "display_name": "公文·流程场景编排",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；数据引用依赖 qiushi-db（经 gongwen-master 路由）；版本 v7.1",
+   "requires": {
+    "master": "gongwen-master（路由与六步法）",
+    "data": "qiushi-db 数据中枢（地方 org_chart 机构名录用于节点单位实名引用）",
+    "subskills": "govdoc-request(请示/批复)、govdoc-report(报告)、govdoc-plan(方案)、govdoc-letter(函)、govdoc-minutes(纪要)、govdoc-notice(通知)"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "article-review",
+   "dir": "article-review",
+   "version": "6.8.1",
+   "display_name": "文章审查（分析+核查）",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）",
+   "requires": {
+    "references": "references/ 子模块方法论文件（随包）",
+    "data": "可选引用 qiushi-db 数据中枢（经 gongwen-master 路由）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  },
+  {
+   "name": "qiushi-db",
+   "dir": "qiushi-db",
+   "version": "1.2.0",
+   "display_name": "公文·数据中枢（求是+地方）",
+   "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层经 datahub/paths.py 解析（外置数据根优先，详见 requires）",
+   "requires": {
+    "engine": "datahub/scripts/qs/qiushi_engine.py",
+    "data": "经 datahub/paths.py 解析：合并主库 gongwen_corpus.db（求是+红旗+jhsjk+lilun+地方 四库合一）+ 派生 qs_index.pkl / qs_vectors.npy / qs_statements.json / corpus_jinyu_full.md。解析序 GONGWEN_DATA_ROOT → assets.json:data_root → 内置默认 → 包内 datahub/ 回退；形态 A 外置 / B 包内 / C 降级",
+    "deps": "jieba, numpy, scikit-learn, rank-bm25",
+    "env": "GONGWEN_BGE_MODEL（可选，hybrid3 向量路）"
+   },
+   "validate": {
+    "issues": [],
+    "warnings": [],
+    "ok": true
+   },
+   "last_verified": "2026-09-29 21:07",
+   "copyright": "Gongwen Master Contributors © Apache-2.0"
+  }
+ ]
+}

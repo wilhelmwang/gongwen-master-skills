@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 解压后的数据库（仓库只保留 .gz）
+datahub/sqlite/*.db
+datahub/sqlite/*.db-journal
+datahub/sqlite/*.db-wal
+datahub/sqlite/*.db-shm
+
+# 运行时产物
+datahub/derived/
+datahub/backups/
+datahub/exports/
+*.log
+.DS_Store
+Thumbs.db
+
+# 用户数据
+style-models/

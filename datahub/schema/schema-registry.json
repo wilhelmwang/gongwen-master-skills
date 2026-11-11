@@ -1,0 +1,143 @@
+{
+  "schema_version": "2.0",
+  "updated_at": "2026-09-17",
+  "path_policy": "物理路径不在此登记：统一经 datahub/paths.py 解析（GONGWEN_DATA_ROOT → assets.json:data_root → 内置默认 <数据根> → 包内 datahub/ 回退）。此前的 sqlite/qs_articles.db、sqlite/hs/hs.db 登记项自 2026-09-09 起已失效（两库均已并入合并库，包内文件为 0 字节占位）。",
+  "databases": {
+    "gongwen_corpus": {
+      "ddl": [
+        "schema/ddls/gongwen_corpus.sql"
+      ],
+      "ddl_note": "ddls/gongwen_corpus.sql 为**生成物**（auto by datahub/schema/gen_ddl.py，自实库导出 26 表 / 9 索引 / 1 视图）。schema 变更后须重跑 gen_ddl.py，并同步本注册表与 assets.json（三同步铁律）。历史上按域拆分的 ddls/qs_articles.sql 与 ddls/hs.sql 已降级为参考件（无 hs_ 前缀、缺合并后新增域），不再参与校验。",
+      "note": "★ 单一合并库（749.6MB / 49 表 / 约 18.0 万行非阴影表）。2026-09-09 由 qs_articles.db + hs.db + jhsjk.db(002/45) + lilun.db(002/45) 四库归并而成，2026-09-12 并入国务院公报；正式读写一律走本库。",
+      "domains": {
+        "articles": {
+          "tables": [
+            "articles",
+            "v_articles_corpus",
+            "txt_corpus_index",
+            "meta"
+          ],
+          "fts": [
+            "articles_fts"
+          ],
+          "note": "求是/红旗/国务院公报(v7.7.0 并入 14,863)/求是网/部委政策/法规/图书/任仲平/国务院公文/贺词；articles 20,931 篇"
+        },
+        "leader": {
+          "tables": [
+            "jhsjk_articles"
+          ],
+          "fts": [
+            "jhsjk_fts"
+          ],
+          "note": "人民网领袖著作要闻库 14,901 篇 / 2,222 万字（2012-11 ~ 2026-09）。jhsjk_fts 为 jieba 分词物化结构（jid/title_t/body_t），2026-09-23 重建修正原 content='articles' 错配与 unicode61 中文不分词问题；检索入口 datahub/scripts/qs/search_jhsjk.py。"
+        },
+        "books": {
+          "tables": [
+            "books24",
+            "lilun_books"
+          ],
+          "fts": [
+            "books24_fts"
+          ],
+          "note": "books24 = 11 本经典 92 章 303 万字全文；lilun_books = 14,253 册广域书籍索引（text_path 指针，1,852 册 scan_only=1）"
+        },
+        "quotes": {
+          "tables": [
+            "statements",
+            "golden_quotes"
+          ],
+          "note": "四型金句论断各 31,315 条（排比 23,694 / 号召 5,157 / 对仗 1,748 / 论断 716），可溯源至 4,895 篇"
+        },
+        "governance": {
+          "tables": [
+            "lineage"
+          ],
+          "note": "来源库/行数/同步时间/断点溯源（5 源登记）"
+        }
+      }
+    },
+    "reference_only": {
+      "jhsjk": {
+        "path": "002成果资产/45_思想理论语料库_IdeologyCorpus_v1.0.0/jhsjk.db",
+        "rows": 14901,
+        "note": "已并入 gongwen_corpus；原库留档"
+      },
+      "lilun": {
+        "path": "002成果资产/45_思想理论语料库_IdeologyCorpus_v1.0.0/lilun.db",
+        "rows": 14253,
+        "note": "已并入 gongwen_corpus；原库留档"
+      }
+    },
+    "gongwen_samples": {
+      "ddl": [
+        "schema/ddls/gongwen_samples.sql"
+      ],
+      "ddl_note": "ddls/gongwen_samples.sql 为**生成物**（auto by `gen_ddl.py --samples`，自实库导出 **7 表 / 4 索引**）。schema 变更后重跑并同步本注册表与 assets.json（三同步铁律）。",
+      "note": "范文池分层库（2026-09-15 新增，24,031 篇）。L0 `raw_pages` 原始层（清洗前原文）/ L1 `samples` 治理层（按当前判据重算）/ L2 `review_state` 审核台账。**刻意不并入主库检索**——主库用于写作引证，混入县区级范本会让引文出处变成基层文件。JSONL（`govdoc_samples/collected.jsonl`）为唯一事实源，本库为派生物、可整库重建（`build_samples_db.py`；`--incremental` 增量）。配套：`refetch_raw.py` 按 URL 重抓补 L0、`dedup_samples.py` 标重复（dup_of/dup_kind，只标记不删除）、`backfill_review.py` 回填台账。语料定性见 THIRD_PARTY_NOTICES §3.5（政务公开文件·行政性质·不适用著作权保护）。",
+      "domains": {
+        "raw": {
+          "tables": [
+            "raw_pages"
+          ],
+          "note": "L0 原始层：清洗前原文 + raw_sha256 + clean_version。存量 14,554 篇由 refetch_raw.py 重抓补回"
+        },
+        "curated": {
+          "tables": [
+            "samples"
+          ],
+          "fts": [
+            "samples_fts"
+          ],
+          "note": "L1 治理层：content / skel / txt_hash / clean_version + trigram 索引。⚠️ 正文仍含网页框架文字（实测约 18%），待 LLM 定界清理"
+        },
+        "review": {
+          "tables": [
+            "review_state",
+            "samples_meta"
+          ],
+          "note": "L2 审核台账：review_kind（tier/boundary）/ tier / scores_json / payload_json / need_full。主键 url，多轮评审只保留最新一轮 ⚠️ 主键只有 url，**多轮/多类评审需另立表**（见 det/llm 两域）。"
+        },
+        "det": {
+          "tables": [
+            "quality_det"
+          ],
+          "note": "**确定性判据层**（2026-09-17 新增）：`rule_ver` + 三维分（struct/clean/fmt）+ `verdict`（C＝一票否决）+ `veto`（命中原因）+ `evidence_json`（逐项证据）。**主键 (url, rule_ver)**——消融与规则迭代需要同一篇的多次结果并存，这也是它**不能**放进 `review_state` 的原因（那张表主键只有 url，2026-09-17 实测：按 url 写 24,031 行会把 108 条审核台账整片覆盖）。产出者：`datahub/scripts/quality/score_deterministic.py`（零 LLM）。"
+        },
+        "llm": {
+          "tables": [
+            "quality_llm"
+          ],
+          "note": "**LLM 档位标注**（2026-09-17 第 2 步新增）：主键 `(url, batch_id)`，存五维分（体例/内容/语言/完整/价值）+ `tier`（A/B/C）+ `type_mismatch` + `why`。产出者：`sample_review.py`（分层抽样导出摘要批次）→ 子 agent 打档 → `ingest_labels.py`（对账+入库）。"
+        }
+      }
+    }
+  },
+  "changelog": [
+    {
+      "v": "2.1",
+      "date": "2026-09-29",
+      "desc": "视图 v_articles_all 改名为 v_articles_corpus：原名声称“all”却仅聚合求是族等七域，不含国务院公报 14,863 篇；改名后口径与定义一致，无消费方受影响（视图无运行时消费方），不纳入公报（公报无六维标签，直查 articles / articles_fts）"
+    },
+    {
+      "v": "2.0",
+      "date": "2026-09-11",
+      "desc": "对齐 2026-09-09 四库归并：登记单一合并库 gongwen_corpus.db 及七域表族；移除已失效的 qs_articles.db / hs.db 路径登记；登记地方 hs_ 前缀规则与其 FTS 未加前缀的例外；物理路径改由 datahub/paths.py 统一解析"
+    },
+    {
+      "v": "1.0",
+      "date": "2026-09-03",
+      "desc": "DDL 首次集中导出；M1 地方两库合一后结构定版"
+    },
+    {
+      "date": "2026-09-15",
+      "change": "新增 gongwen_samples（范文池分层库）纳入 schema/DDL 门禁",
+      "reason": "新库不登记则其 schema 漂移不被任何门禁发现（此前只登记 gongwen_corpus 与 reference_only）",
+      "files": [
+        "datahub/schema/ddls/gongwen_samples.sql",
+        "datahub/schema/gen_ddl.py（新增 --samples）"
+      ]
+    },
+    "2026-09-17 gongwen_samples 增 `quality_det`（确定性判据层，主键 (url, rule_ver)），DDL 重生成（5→6 表 / 2→3 索引）；registry 增 domain `det`。起因：确定性分一度写进 review_state，因该表主键仅 url 而覆盖了 108 条审核台账。",
+    "2026-09-17 gongwen_samples 增 `quality_llm`（LLM 档位标注，主键 (url,batch_id)）；DDL 重生成（6→7 表 / 3→4 索引）；registry 增 domain `llm`。"
+  ]
+}

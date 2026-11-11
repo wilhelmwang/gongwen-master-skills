@@ -1,0 +1,458 @@
+{
+ "schema": "1.0",
+ "meta": {
+  "v6.9.0": "P1-3 语义路由评测集：口语→文种 90 条（每文种 5 条），期望=路由目标技能"
+ },
+ "queries": [
+  {
+   "q": "领导让发个关于调整作息时间的东西",
+   "expected": "govdoc-notice",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "单位要通知大家明天上午开会准备材料",
+   "expected": "govdoc-notice",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "上面要求把安全教育安排下发",
+   "expected": "govdoc-notice",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "放假安排得让大家知道",
+   "expected": "govdoc-notice",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "新规定要广而告之",
+   "expected": "govdoc-notice",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "明天大会领导要上台说几句",
+   "expected": "govdoc-speech",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "年会开场白领导讲话",
+   "expected": "govdoc-speech",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "动员大会得有人喊话鼓劲",
+   "expected": "govdoc-speech",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "表彰会上领导致辞",
+   "expected": "govdoc-speech",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "项目启动会说两句",
+   "expected": "govdoc-speech",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "向领导汇报上半年干了啥",
+   "expected": "govdoc-report",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "这一季度工作情况要向上交代",
+   "expected": "govdoc-report",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "述职材料怎么组织",
+   "expected": "govdoc-report",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "履职情况书面汇报",
+   "expected": "govdoc-report",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "把手头的活系统讲一遍",
+   "expected": "govdoc-report",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "年底了把全年工作盘一盘",
+   "expected": "govdoc-summary",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "这半年干的活收个尾",
+   "expected": "govdoc-summary",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "专项工作结束写个回顾",
+   "expected": "govdoc-summary",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "阶段性成果梳理一下",
+   "expected": "govdoc-summary",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "把一年成绩单整理出来",
+   "expected": "govdoc-summary",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "去基层蹲点回来要写点东西",
+   "expected": "govdoc-research",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "考察了外地经验得形成文字",
+   "expected": "govdoc-research",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "把调研看到的情况整理成文",
+   "expected": "govdoc-research",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "深入了解情况后落笔",
+   "expected": "govdoc-research",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "外地考察心得成文",
+   "expected": "govdoc-research",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "下季度怎么干列个章程",
+   "expected": "govdoc-plan",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "把明年任务排一排",
+   "expected": "govdoc-plan",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "这项工作怎么推进写个蓝图",
+   "expected": "govdoc-plan",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "活动安排提前谋一谋",
+   "expected": "govdoc-plan",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "改革推进的路线路图",
+   "expected": "govdoc-plan",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "跟上级要钱要政策怎么措辞",
+   "expected": "govdoc-request",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "向上头申请增加编制",
+   "expected": "govdoc-request",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "请领导拍板个事",
+   "expected": "govdoc-request",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "想让上头批准这个事",
+   "expected": "govdoc-request",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "争取上级支持的表达",
+   "expected": "govdoc-request",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "表扬好人好事的文稿",
+   "expected": "govdoc-circular",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "有人违纪要点一点",
+   "expected": "govdoc-circular",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "把督查情况说给大家听",
+   "expected": "govdoc-circular",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "内部情况定期刊发",
+   "expected": "govdoc-circular",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "重要紧急情况书面报告",
+   "expected": "govdoc-circular",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "把会上定的事记录下来",
+   "expected": "govdoc-minutes",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "昨天讨论的内容整理成文",
+   "expected": "govdoc-minutes",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "领导班子议定事项成文",
+   "expected": "govdoc-minutes",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "会议过程留档",
+   "expected": "govdoc-minutes",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "备忘录式的会议整理",
+   "expected": "govdoc-minutes",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "单位出了成果对外发通稿",
+   "expected": "govdoc-news",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "领导视察的宣传稿",
+   "expected": "govdoc-news",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "活动报道给媒体用",
+   "expected": "govdoc-news",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "把好消息写成新闻",
+   "expected": "govdoc-news",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "面向公众的宣传文字",
+   "expected": "govdoc-news",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "给全体市民的一封信",
+   "expected": "govdoc-letter",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "感谢兄弟单位支持的文书",
+   "expected": "govdoc-letter",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "慰问困难职工的文字",
+   "expected": "govdoc-letter",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "回应大家关切的声明",
+   "expected": "govdoc-letter",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "倡议大家做某事的公开文",
+   "expected": "govdoc-letter",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "学完文件写点感想",
+   "expected": "govdoc-reflection",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "培训之后的体会文章",
+   "expected": "govdoc-reflection",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "观影之后的所思所想",
+   "expected": "govdoc-reflection",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "学习心得落笔成文",
+   "expected": "govdoc-reflection",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "读了报告谈谈感受",
+   "expected": "govdoc-reflection",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "把好做法总结出去交流",
+   "expected": "govdoc-experience",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "典型经验材料的写法",
+   "expected": "govdoc-experience",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "向兄弟单位介绍经验",
+   "expected": "govdoc-experience",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "做法成效汇报",
+   "expected": "govdoc-experience",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "可复制经验的文字",
+   "expected": "govdoc-experience",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "单位管理要有章可循",
+   "expected": "govdoc-regulation",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "制定个内部管理办法",
+   "expected": "govdoc-regulation",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "操作规程成文",
+   "expected": "govdoc-regulation",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "员工守则起草",
+   "expected": "govdoc-regulation",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "制度条文拟定",
+   "expected": "govdoc-regulation",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "就某个理论问题写篇大文章",
+   "expected": "govdoc-theory",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "政论性文章怎么起笔",
+   "expected": "govdoc-theory",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "思想评论的撰写",
+   "expected": "govdoc-theory",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "理论阐释成文",
+   "expected": "govdoc-theory",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "学理文章起草",
+   "expected": "govdoc-theory",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "公文排版格式不对要调",
+   "expected": "govdoc-layout",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "红头文件格式规范",
+   "expected": "govdoc-layout",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "公文页面布局调整",
+   "expected": "govdoc-layout",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "Word 公文格式设置",
+   "expected": "govdoc-layout",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "版式按国标调整",
+   "expected": "govdoc-layout",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "这篇稿子帮我改改更顺",
+   "expected": "govdoc-polish",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "文字再润一润",
+   "expected": "govdoc-polish",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "这段太啰嗦压缩一下",
+   "expected": "govdoc-polish",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "语言不够庄重调整",
+   "expected": "govdoc-polish",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "把我这稿子拾掇拾掇",
+   "expected": "govdoc-polish",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "人事分工调整的文件",
+   "expected": "govdoc-duty",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "谁管哪块工作要发文明确",
+   "expected": "govdoc-duty",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "干部职责重新划分",
+   "expected": "govdoc-duty",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "岗位职责调整通知",
+   "expected": "govdoc-duty",
+   "tier": "route_colloquial"
+  },
+  {
+   "q": "分管工作变更文件",
+   "expected": "govdoc-duty",
+   "tier": "route_colloquial"
+  }
+ ]
+}

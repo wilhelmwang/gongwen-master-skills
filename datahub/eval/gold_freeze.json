@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "frozen_at": "2026-09-16",
+  "file": "gold_ids.json",
+  "sha256": "c033be8662903761f9809c9fbd3ad338a352736344da6f159d3face1ac9afd61",
+  "n_queries": 104,
+  "slots": 7145,
+  "why": [
+    "`build_gold.py` 会按「标题含关键词」从 `articles` 表**重新派生** gold。实测（2026-09-16）：",
+    "重派生会把 gold 槽位从 7,145 放大到 35,615（约 5 倍），104 条里 65 条变大，",
+    "最大的三条从 289/281/281 涨到 5,413/5,405/5,405 —— 单条查询的 gold 占到语料的 26%。",
+    "gold 占比一高，hit_rate / precision@3 / MRR 都会**因判据变松而上升**，而检索毫无改善。",
+    "换句话说：跑一次 `python build_gold.py`（不带 --check）就会悄悄放宽评测并让指标虚升。",
+    "故把当前 gold 冻结为**回归线**：任何 re-derive 都必须显式重新冻结并说明理由。",
+    "注意：这不表示重派生是错的——它反映的是语料变化（v7.7.0 并入公报后标题命中更多）。",
+    "但**评测判据的松紧是独立于语料的事实**，不能跟着语料自己动。"
+  ],
+  "how_to_change": [
+    "确需重新派生时：①跑 `python datahub/eval/check_gold_freeze.py --explain` 看重派生差异；",
+    "②确认是刻意的判据变更（不是顺手跑了一下 build_gold）；③更新本文件的 sha256 / slots",
+    "并在 `why` 追加一条带日期的变更理由；④重跑 `release.py --only eval`，把新基线与旧基线**并列记录**。",
+    "只改 sha256 而不记录理由，等于把回归线悄悄挪了位置。"
+  ],
+  "companion": "datahub/eval/policy_cases.json（政策原文能力线，gold 为手工指定的具体文档，不受语料变化影响）"
+}

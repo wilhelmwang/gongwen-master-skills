@@ -1,0 +1,7 @@
+interface:
+  display_name: "经验交流写作"
+  short_description: "面向机关单位常用公文材料场景的AI辅助写作专项技能"
+  brand_color: "#1F6FEB"
+  default_prompt: "Use $govdoc-experience to draft an experience-sharing material or typical-practice speech."
+policy:
+  allow_implicit_invocation: true

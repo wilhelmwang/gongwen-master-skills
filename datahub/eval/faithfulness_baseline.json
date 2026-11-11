@@ -1,0 +1,10 @@
+{
+ "n": 104,
+ "answered": 70,
+ "refusals": 22,
+ "errors": 12,
+ "faithfulness_answered_mean": 0.954,
+ "threshold": 0.85,
+ "pass": true,
+ "note": "拒答单列：生成端遵守防幻觉规则，拒答不算幻觉；拒答率高=检索覆盖问题（口语改写层）"
+}

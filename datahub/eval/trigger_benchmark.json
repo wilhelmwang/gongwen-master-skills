@@ -1,0 +1,364 @@
+{
+ "schema": "1.0",
+ "version": "v7.6.0",
+ "updated": "2026-09-11",
+ "_doc": "路由触发率评测集（B 批 · v7.3.2）。三类用例：positive（应正确路由）/ near_miss（含某技能关键词但诉求属别的技能或根本不是公文——用于暴露子串匹配的误触发）/ true_negative（完全不该触发本包）。split 用于 train/validation 划分：只据 train 失败改规则，用 validation 验收，避免把规则过拟合到评测集。",
+ "_expect_semantics": "expect 为路由目标的子串；'NO-MATCH' 表示不该命中任何规则。",
+ "_run_note": "本包路由为确定性关键词+优先级引擎（非 LLM 抽取），故单次判定即可复现；官方方法里的「每例跑 3 次算触发率」针对随机触发的 LLM 场景，此处不适用——已用近义负例替代其区分力。",
+ "cases": [
+  {
+   "id": "p01",
+   "q": "写份防汛通知",
+   "expect": "notice",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p02",
+   "q": "起草领导讲话",
+   "expect": "speech",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p03",
+   "q": "给我写个工作汇报",
+   "expect": "report",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p04",
+   "q": "上半年工作总结",
+   "expect": "summary",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p05",
+   "q": "会议纪要怎么写",
+   "expect": "minutes",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p06",
+   "q": "出一份调研报告",
+   "expect": "research",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p07",
+   "q": "制定实施方案",
+   "expect": "plan",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p08",
+   "q": "起草一份规章制度",
+   "expect": "regulation",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p09",
+   "q": "写理论文章",
+   "expect": "theory",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p10",
+   "q": "学习心得体会",
+   "expect": "reflection",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p11",
+   "q": "写新闻稿",
+   "expect": "news",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p12",
+   "q": "向上级请示",
+   "expect": "request",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p13",
+   "q": "通报表彰先进",
+   "expect": "circular",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p14",
+   "q": "经验交流材料",
+   "expect": "experience",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p15",
+   "q": "任免通知",
+   "expect": "duty",
+   "kind": "positive",
+   "split": "train"
+  },
+  {
+   "id": "p16",
+   "q": "感谢信",
+   "expect": "letter",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "p17",
+   "q": "用文风一的风格写",
+   "expect": "govdoc-styles",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "p18",
+   "q": "用置身事内体写一段分析",
+   "expect": "shuji",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "p19",
+   "q": "引用求是权威表述",
+   "expect": "qiushi-db",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "p20",
+   "q": "引用地方GDP数据",
+   "expect": "qiushi-db",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "p21",
+   "q": "帮我润色这段话",
+   "expect": "polish",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "p22",
+   "q": "质检这段公文",
+   "expect": "polish",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "p23",
+   "q": "公文排版格式",
+   "expect": "layout",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "p24",
+   "q": "立项报批要哪些材料",
+   "expect": "workflow",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "p25",
+   "q": "核查这篇文章事实",
+   "expect": "article-review",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "m01",
+   "q": "上次那份防汛通知的落实情况写个报告",
+   "expect": "report",
+   "kind": "near_miss",
+   "split": "train",
+   "note": "含「通知」但诉求是报告。**非排序缺陷**：spec 在规则 A 表后明确写了「避免『报告』等高频词误触发」，故 report 的关键词只收「工作报告/述职/汇报/履职」而不收裸词「报告」——『写个报告』属该设计的有意召回代价。保留在集内持续可见，但不计入准确率分母。",
+   "known_gap": true
+  },
+  {
+   "id": "m02",
+   "q": "把这份讲话稿精简到500字",
+   "expect": "polish",
+   "kind": "near_miss",
+   "split": "train",
+   "note": "含「讲话」(A) 与「精简」(E) 同现——考验动作词是否该优先于文种词"
+  },
+  {
+   "id": "m03",
+   "q": "请示一下领导的意见再定",
+   "expect": "NO-MATCH",
+   "kind": "near_miss",
+   "split": "train",
+   "note": "含「请示」但只是日常征求意见。**关键词层的边界**：「请示」同形（名词文种 / 动词『请示一下』），纯子串匹配无法区分词性；与『向上级请示』仅差两字，无法用关键词规则安全分离。需语义路由（semantic_router，需 BGE）才能改善。保留计入分母。"
+  },
+  {
+   "id": "m04",
+   "q": "帮我总结一下这篇论文的方法",
+   "expect": "NO-MATCH",
+   "kind": "near_miss",
+   "split": "train",
+   "note": "含「总结」但是学术文献总结 → 已由「非公文任务护栏」（论文/文献）覆盖"
+  },
+  {
+   "id": "m05",
+   "q": "把这周的会议纪要翻译成英文",
+   "expect": "NO-MATCH",
+   "kind": "near_miss",
+   "split": "train",
+   "note": "含「会议纪要」但诉求是翻译"
+  },
+  {
+   "id": "m06",
+   "q": "帮我起草一份租房合同",
+   "expect": "NO-MATCH",
+   "kind": "near_miss",
+   "split": "train",
+   "note": "含「起草」但合同不是法定公文文种"
+  },
+  {
+   "id": "m07",
+   "q": "写个周报",
+   "expect": "summary",
+   "kind": "near_miss",
+   "split": "train",
+   "note": "「周报」不含任何现有关键词——暴露召回缺口"
+  },
+  {
+   "id": "m08",
+   "q": "调研报告里的数据帮我做成图表",
+   "expect": "NO-MATCH",
+   "kind": "near_miss",
+   "split": "train",
+   "note": "含「调研报告」但诉求是数据可视化"
+  },
+  {
+   "id": "m09",
+   "q": "总结一下这次事故的教训并在全局通报",
+   "expect": "circular",
+   "kind": "near_miss",
+   "split": "val",
+   "note": "含「总结」+「通报」，诉求落点是通报"
+  },
+  {
+   "id": "m10",
+   "q": "把领导讲话的重点做成PPT",
+   "expect": "NO-MATCH",
+   "kind": "near_miss",
+   "split": "val",
+   "note": "含「讲话」但诉求是 PPT 制作"
+  },
+  {
+   "id": "m11",
+   "q": "帮我写个会议通知的英文版",
+   "expect": "NO-MATCH",
+   "kind": "near_miss",
+   "split": "val",
+   "note": "含「会议通知」但诉求是翻译/英文稿"
+  },
+  {
+   "id": "m12",
+   "q": "这段话有点啰嗦，帮我精简",
+   "expect": "polish",
+   "kind": "near_miss",
+   "split": "val",
+   "note": "纯动作词，无文种词——应正确走 polish"
+  },
+  {
+   "id": "m13",
+   "q": "把这份总结的格式调成公文标准",
+   "expect": "layout",
+   "kind": "near_miss",
+   "split": "val",
+   "note": "含「总结」+「格式」，诉求是排版"
+  },
+  {
+   "id": "x01",
+   "q": "帮我写个Python脚本读Excel",
+   "expect": "NO-MATCH",
+   "kind": "true_negative",
+   "split": "train"
+  },
+  {
+   "id": "x02",
+   "q": "翻译这段英文",
+   "expect": "NO-MATCH",
+   "kind": "true_negative",
+   "split": "train"
+  },
+  {
+   "id": "x03",
+   "q": "帮我做个PPT",
+   "expect": "NO-MATCH",
+   "kind": "true_negative",
+   "split": "train"
+  },
+  {
+   "id": "x04",
+   "q": "今天天气怎么样",
+   "expect": "NO-MATCH",
+   "kind": "true_negative",
+   "split": "val"
+  },
+  {
+   "id": "x05",
+   "q": "帮我查一下这个报错的解决方法",
+   "expect": "NO-MATCH",
+   "kind": "true_negative",
+   "split": "val"
+  },
+  {
+   "id": "p26",
+   "q": "把这些材料写成一份通知",
+   "expect": "material",
+   "kind": "positive",
+   "split": "train",
+   "note": "v7.6.0 C3a：E 类编辑动作优先于 A 文种词（真诉求是以稿写稿）"
+  },
+  {
+   "id": "p27",
+   "q": "按材料写一份总结",
+   "expect": "material",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "p28",
+   "q": "导入我们单位的历年公文",
+   "expect": "corpus",
+   "kind": "positive",
+   "split": "train",
+   "note": "v7.6.0 C3b：单位语料接入"
+  },
+  {
+   "id": "p29",
+   "q": "建立本单位公文库",
+   "expect": "corpus",
+   "kind": "positive",
+   "split": "val"
+  },
+  {
+   "id": "n14",
+   "q": "写份总结 参考我们单位公文库",
+   "expect": "summary",
+   "kind": "near_miss",
+   "split": "train",
+   "note": "corpus 不抢文种词优先级：有明确文种时走文种技能（router 的 _NON_EDIT_TARGETS）"
+  }
+ ],
+ "_known_gap_policy": "known_gap=true 的用例：spec 明确规定的有意设计权衡（有原文引用为据），报告可见但不计入准确率分母。除此之外的失败一律计入——不得用本字段掩盖缺陷。"
+}

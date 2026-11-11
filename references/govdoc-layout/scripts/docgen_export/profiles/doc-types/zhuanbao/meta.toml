@@ -1,0 +1,7 @@
+# 文种 → 版式方案绑定（govdoc-layout / docgen_export）
+# 加载优先级：本 TOML > rules.py 的 _DEFAULT_DOC_TYPE_BINDINGS（代码默认兜底，保证 3.10 无 tomllib 亦可用）
+# font_profile 取值：""（省略）=国标默认字体 / "noto-cjk"；layout_profile 取值：省略=官方标准 / "internal-readable" / "speech-readable"
+
+doc_type       = "专报"
+layout_profile = "internal-readable"
+# 备注：同上

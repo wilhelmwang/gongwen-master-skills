@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>公文大师 v8.0.0 · 七大师文风体系</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root{
+    --red:#A32D2D;--red-deep:#791F1F;--red-bg:#FCEBEB;
+    --ink:#2C2C2A;--ink2:#444441;--muted:#888780;
+    --paper:#FBF9F4;--paper2:#F5F2EA;--line:#E5E1D8;
+    --gold:#854F0B;--gold-md:#FAC775;
+    --teal:#0F6E56;--teal-bg:#EDF6F1;
+    --purple:#534AB7;--purple-bg:#EEEDFE;
+    --blue:#185FA5;--blue-bg:#E6F1FB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--paper2);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  .masthead{background:var(--paper);border-bottom:3px double var(--red);padding:32px 0 24px;text-align:center}
+  .brand-row{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+  .seal{width:64px;height:64px;border:3px solid var(--red);border-radius:8px;display:flex;align-items:center;justify-content:center;transform:rotate(4deg);color:var(--red);font-size:15px;font-weight:700;line-height:1.2;text-align:center;letter-spacing:2px}
+  h1{font-size:32px;font-weight:700;letter-spacing:5px;color:var(--red)}
+  .en{font-size:12px;letter-spacing:3px;color:var(--muted);margin-top:2px}
+  .tagline{margin-top:12px;font-size:19px}
+  .tagline b{border-bottom:3px solid var(--gold-md);padding-bottom:2px}
+  .subline{margin-top:8px;font-size:13.5px;color:var(--muted)}
+  .subline span{margin:0 8px}
+
+  section{padding:34px 0 10px}
+  .sec-title{text-align:center;margin-bottom:22px}
+  .sec-title h2{font-size:22px;font-weight:700;letter-spacing:3px;display:inline-block;position:relative;padding:0 24px}
+  .sec-title h2::before,.sec-title h2::after{content:"";position:absolute;top:50%;width:40px;height:1px;background:var(--gold-md)}
+  .sec-title h2::before{left:-48px}
+  .sec-title h2::after{right:-48px}
+  .sec-title p{font-size:13px;color:var(--muted);margin-top:4px}
+
+  .masters{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px}
+  .m{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px;position:relative}
+  .m .badge{position:absolute;top:-10px;left:18px;background:var(--red);color:#fff;font-size:11.5px;padding:2px 12px;border-radius:10px;letter-spacing:2px}
+  .m:nth-child(2) .badge{background:var(--gold)}
+  .m:nth-child(3) .badge{background:var(--teal)}
+  .m:nth-child(4) .badge{background:var(--blue)}
+  .m:nth-child(5) .badge{background:var(--purple)}
+  .m:nth-child(6) .badge{background:#8A6D3B}
+  .m:nth-child(7) .badge{background:var(--red-deep)}
+  .m h3{font-size:19px;font-weight:700;letter-spacing:2px;margin-bottom:2px}
+  .m .cat{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .m .persona{font-size:13.5px;margin-bottom:8px}
+  .m .persona b{color:var(--red)}
+  .m ul{list-style:none;font-size:12.5px;color:var(--ink2)}
+  .m ul li{padding:2px 0 2px 14px;position:relative}
+  .m ul li::before{content:"·";position:absolute;left:2px;color:var(--gold);font-weight:700}
+  .m .trigger{margin-top:8px;font-size:11.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:6px}
+
+  .pipeline{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 22px;max-width:860px;margin:0 auto}
+  .pl-step{display:flex;gap:12px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line)}
+  .pl-step:last-child{border-bottom:none}
+  .pl-step .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--paper2);border:1.5px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+  .pl-step div{font-size:13.5px}
+  .pl-step b{display:block;font-size:14px}
+  .pl-step span{color:var(--ink2)}
+
+  .stats{background:var(--ink);border-radius:12px;color:#F5F2EA;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;padding:24px 18px;text-align:center}
+  .stats .v{font-size:30px;font-weight:700;color:var(--gold-md);line-height:1.15}
+  .stats .v small{font-size:14px;font-weight:400}
+  .stats .k{font-size:12px;color:#C9C5B8;margin-top:3px;letter-spacing:1px}
+
+  .cta{background:var(--red);border-radius:12px;color:#fff;text-align:center;padding:28px 20px;margin:16px 0 0}
+  .cta h3{font-size:21px;letter-spacing:3px;margin-bottom:6px}
+  .cta p{font-size:14px;opacity:.92}
+  .cta .contact{margin-top:12px;font-size:13px;opacity:.9}
+  footer{text-align:center;font-size:12px;color:var(--muted);padding:20px 0 28px}
+  @media(max-width:640px){h1{font-size:25px;letter-spacing:3px}.tagline{font-size:16px}.stats .v{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="brand-row">
+      <div class="seal">公文<br>大师</div>
+      <div>
+        <h1>公文大师</h1>
+        <div class="en">GONGWEN MASTER · v8.0.0</div>
+      </div>
+    </div>
+    <div class="tagline">七位大师执笔 · <b>一站写尽政务文风</b></div>
+    <div class="subline">5,761 篇权威语料<span>·</span>6,003 文件离线包<span>·</span>25 项安装校验<span>·</span>零 API 依赖</div>
+  </header>
+
+  <!-- 七大师 -->
+  <section>
+    <div class="sec-title">
+      <h2>七位大师 · 六文风一评论员</h2>
+      <p>每位大师都是一种政务文风的人格化——点名即用，风格可辨</p>
+    </div>
+    <div class="masters">
+      <div class="m"><span class="badge">文风一</span>
+        <h3>湘江笔</h3><div class="cat">治理分析 · 领导讲话</div>
+        <div class="persona"><b>治国理政的大手笔</b>——站位高、气势足、善用比喻。</div>
+        <ul><li>大白话立论，四字短语连排</li><li>纸老虎式具象比喻（宁缺毋滥）</li><li>负样本：反对党八股八忌</li></ul>
+        <div class="trigger">触发：湘江笔 / 文风一</div>
+      </div>
+      <div class="m"><span class="badge">文风二</span>
+        <h3>耿彦波</h3><div class="cat">城建攻坚 · 文化叙事</div>
+        <div class="persona"><b>城建实干家</b>——历史纵深开路，把城市命运与个人使命写进一句话。</div>
+        <ul><li>「X 而不可 X」回环句式</li><li>八组四字短语连排收束</li><li>黄金样本：102 篇真实语料</li></ul>
+        <div class="trigger">触发：耿彦波 / 文风二</div>
+      </div>
+      <div class="m"><span class="badge">文风三</span>
+        <h3>郑栅洁</h3><div class="cat">发改经济 · 项目数据</div>
+        <div class="persona"><b>数字将军</b>——项目为纲、集群成链，每句话都有数、每个部署可考核。</div>
+        <ul><li>「四大/六大/三大」集群公式</li><li>「就是要+三动词」任务定义</li><li>黄金样本：46 万字真实语料</li></ul>
+        <div class="trigger">触发：郑栅洁 / 文风三</div>
+      </div>
+      <div class="m"><span class="badge">文风四</span>
+        <h3>乔木笔</h3><div class="cat">政策解读 · 理论文章</div>
+        <div class="persona"><b>政策解读的定盘星</b>——把万字文件压成六字诀，用「就是」转成人话。</div>
+        <ul><li>背景三源（形势/基层/试点）</li><li>条款对照 + 提示执行三坑</li><li>字字有据，不夹带私货</li></ul>
+        <div class="trigger">触发：乔木笔 / 文风四</div>
+      </div>
+      <div class="m"><span class="badge">文风五</span>
+        <h3>翔宇先生</h3><div class="cat">务实周密 · 函电汇报</div>
+        <div class="persona"><b>务实的公文本色</b>——事无巨细皆有章法，文字平实而滴水不漏。</div>
+        <ul><li>要素齐全（时限/责任一个不落）</li><li>办结式收尾，不表功不渲染</li><li>极简修辞，效率至上</li></ul>
+        <div class="trigger">触发：翔宇先生 / 文风五</div>
+      </div>
+      <div class="m"><span class="badge">文风六</span>
+        <h3>笃行先生</h3><div class="cat">国资国企 · 经营规范</div>
+        <div class="persona"><b>国资监管的规范化身</b>——对标世界一流，数据立身、考核闭环。</div>
+        <ul><li>三率记分牌（负债率/研发强度/考核覆盖）</li><li>「对标不达标、考核不过关」</li><li>数据以审计口径为准</li></ul>
+        <div class="trigger">触发：笃行先生 / 文风六</div>
+      </div>
+      <div class="m"><span class="badge">评论员</span>
+        <h3>求是笔</h3><div class="cat">理论阐发 · 评论员文章</div>
+        <div class="persona"><b>《求是》评论员集体文风</b>——把彻底的理论讲透彻，把鲜活的思想讲鲜活。</div>
+        <ul><li>刚性动词引导（必须/只有）</li><li>正反对照（"反之，如果……就会"）</li><li>252 篇真实语料 · 12 段黄金样本</li></ul>
+        <div class="trigger">触发：求是笔 / 理论阐发体 / 中心组发言</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 流水线 -->
+  <section>
+    <div class="sec-title">
+      <h2>三步升级流水线</h2>
+      <p>通用快出稿 → 不满意一句话升级 → 常用大师越用越懂你</p>
+    </div>
+    <div class="pipeline">
+      <div class="pl-step"><div class="n">1</div><div><b>通用快出稿</b><span>说「写份讲话/汇报/总结」，文种模块直接出稿——零门槛，不等不挑。</span></div></div>
+      <div class="pl-step"><div class="n">2</div><div><b>一句话升级文风</b><span>不满意？说「升级文风」或直接点名大师（如「按耿彦波风格改」）——以大师黄金样本为范本改写表达，结构与事实原样保留。</span></div></div>
+      <div class="pl-step"><div class="n">3</div><div><b>常用大师自动记住</b><span>升级过的风格记入你的画像。下次成稿时主动问一句「按您常用的文风三升级吗？」——越用越懂你，随时可换。</span></div></div>
+    </div>
+  </section>
+
+  <!-- 数据 -->
+  <section>
+    <div class="sec-title">
+      <h2>数字说话</h2>
+      <p>全部实测基线，附评测脚本可复验</p>
+    </div>
+    <div class="stats">
+      <div class="s"><div class="v">5,761</div><div class="k">求是权威语料（篇）</div></div>
+      <div class="s"><div class="v">99<small>%</small></div><div class="k">检索命中率</div></div>
+      <div class="s"><div class="v">0.954</div><div class="k">忠实度（不编造）</div></div>
+      <div class="s"><div class="v">252</div><div class="k">评论员语料（篇）</div></div>
+      <div class="s"><div class="v">7<small> 位</small></div><div class="k">文风大师</div></div>
+      <div class="s"><div class="v">100</div><div class="k">机构职责库</div></div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <h3>把七位大师装进你的公文工具箱</h3>
+    <p>点名大师 · 或说「升级文风」· 离线运行 · 语料随包</p>
+    <div class="contact">Gongwen Master Contributors © Apache-2.0</div>
+  </div>
+  <footer>公文大师 GongWen Master v8.0.0 · 大师人设仅为文风模型，不代表任何真实人物或机构观点</footer>
+</div>
+</body>
+</html>

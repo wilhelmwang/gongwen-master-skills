@@ -1,0 +1,20 @@
+Gongwen Master（公文大师）
+Copyright 2026 Gongwen Master Contributors
+
+This product includes software developed by the Gongwen Master
+project contributors and distributed under the Apache License,
+Version 2.0.
+
+The bundled database (datahub/sqlite/gongwen_corpus.db.gz) contains
+administrative documents published by the State Council of the
+People's Republic of China and other central government bodies.
+Those documents are public administrative materials; this project
+claims no copyright over them and redistributes them with source
+attribution retained in the `articles.source` column.
+
+The Apache-2.0 license applies to the source code, documentation and
+skill definitions of this project. It does NOT apply to third-party
+text corpora, which are not included in this repository.
+
+Third-party software components and their licenses are listed in
+THIRD_PARTY_NOTICES.md.

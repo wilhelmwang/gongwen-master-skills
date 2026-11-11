@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>公文大师 gongwen-master · 上手引导 v5.0.0</title>
+<style>
+  :root{
+    --navy:#1F3A5F; --red:#B03A2E; --red-d:#8E2A20; --paper:#FBF9F4;
+    --ink:#2B2B2B; --mut:#6B6B6B; --line:#E4DED3; --card:#FFFFFF;
+    --accent:#A93226; --gold:#B8860B;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Source Han Serif SC","Noto Serif SC","Songti SC","SimSun",Georgia,serif; background:var(--paper); color:var(--ink); line-height:1.75; padding-bottom:60px;}
+  header{background:linear-gradient(135deg,var(--navy),#2C4A6E); color:#fff; padding:44px 22px 38px; text-align:center;}
+  header .tag{display:inline-block; font-size:12px; letter-spacing:2px; border:1px solid rgba(255,255,255,.5); padding:3px 14px; border-radius:20px; margin-bottom:18px;}
+  header h1{font-size:34px; font-weight:700; letter-spacing:3px;}
+  header p.sub{margin-top:12px; font-size:15px; opacity:.92; letter-spacing:1px;}
+  header .vers{margin-top:14px; font-size:12px; opacity:.7;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 18px;}
+  .badgenum{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:-26px auto 0; padding:0;}
+  .badge{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 12px; text-align:center; box-shadow:0 4px 14px rgba(31,58,95,.08);}
+  .badge .n{font-size:26px; font-weight:800; color:var(--red);}
+  .badge .l{font-size:12px; color:var(--mut); margin-top:2px;}
+  section{margin-top:40px;}
+  h2{font-size:22px; color:var(--navy); border-left:5px solid var(--red); padding-left:12px; margin-bottom:16px; letter-spacing:1px;}
+  h2 .en{font-size:12px; color:var(--mut); font-weight:400; margin-left:8px;}
+  .lead{color:#444; font-size:15px;}
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px;}
+  .card h3{font-size:16px; color:var(--red-d); margin-bottom:6px;}
+  .card p{font-size:14px; color:#444;}
+  .card code{display:block; background:#F4F1EA; border:1px dashed #CFC6B4; border-radius:8px; padding:10px 12px; margin-top:8px; font-size:13px; color:#5B5344; font-family:"Cascadia Code",Consolas,monospace;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 20px;}
+  .bar{height:14px; background:#EFEAE0; border-radius:8px; overflow:hidden; margin:6px 0 12px;}
+  .bar i{display:block; height:100%; background:linear-gradient(90deg,var(--red),#C96A5B);}
+  .row{display:flex; align-items:baseline; gap:10px; font-size:14px;}
+  .row .k{color:#333; width:150px; flex-shrink:0;}
+  .row .v{color:var(--red); font-weight:700; min-width:48px;}
+  .row .m{color:var(--mut); font-size:12px;}
+  table{width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:10px; overflow:hidden; font-size:14px;}
+  th{background:var(--navy); color:#fff; padding:10px 12px; text-align:left; font-weight:600;}
+  td{padding:10px 12px; border-top:1px solid var(--line);}
+  tr:nth-child(even) td{background:#F7F4EC;}
+  details{background:var(--card); border:1px solid var(--line); border-radius:10px; margin-bottom:10px; padding:4px 16px;}
+  summary{cursor:pointer; font-weight:600; color:var(--navy); padding:12px 0;}
+  details p{font-size:14px; color:#444; padding-bottom:12px;}
+  .flow{display:grid; grid-template-columns:repeat(5,1fr); gap:0; margin-top:8px;}
+  .step{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--red); padding:14px; font-size:13px;}
+  .step b{display:block; color:var(--red-d); margin-bottom:4px; font-size:14px;}
+  footer{margin-top:46px; text-align:center; font-size:12px; color:var(--mut); border-top:1px solid var(--line); padding-top:18px;}
+  @media(max-width:680px){.badgenum{grid-template-columns:repeat(2,1fr);} .cards{grid-template-columns:1fr;} .flow{grid-template-columns:1fr 1fr;} .row .k{width:110px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="tag">求是体 · 公文写作专家</span>
+  <h1>公文大师</h1>
+  <p class="sub">gongwen-master — 一个读完全部《求是》杂志的公文老师</p>
+  <div class="vers">v5.0.0 ｜ Gongwen Master Contributors © Apache-2.0 ｜ 微信 </div>
+</header>
+
+<div class="wrap">
+
+  <div class="badgenum">
+    <div class="badge"><div class="n">2105</div><div class="l">求是文章逐篇精读</div></div>
+    <div class="badge"><div class="n">1026万</div><div class="l">字范文底座</div></div>
+    <div class="badge"><div class="n">99.7%</div><div class="l">全库阅读覆盖</div></div>
+    <div class="badge"><div class="n">7维</div><div class="l">写作特征建模</div></div>
+  </div>
+
+  <section>
+    <h2>一句话说明 <span class="en">What it is</span></h2>
+    <p class="lead">《求是》杂志是党政公文的最高范本。本技能由大模型<b>逐篇读完 2105 篇求是正文</b>，把真实写作规律统计出来，再固化成角色——<b>它会写、会改、会评，还能仿风格</b>。不是模板库，是学到了方法论。</p>
+  </section>
+
+  <section>
+    <h2>核心打法（2105 篇统计） <span class="en">The distilled patterns</span></h2>
+    <div class="stat">
+      <div class="row"><span class="k">结构骨架</span><span class="v">总分总 28%</span><span class="m">并列 19% · 递进 17% · 历史-现状-展望 11%</span></div>
+      <div class="bar"><i style="width:28%"></i></div>
+      <div class="row"><span class="k">开头起笔</span><span class="v">引领袖讲话 32%</span><span class="m">背景切入 32% · 论断破题 24%</span></div>
+      <div class="bar"><i style="width:32%"></i></div>
+      <div class="row"><span class="k">结尾收束</span><span class="v">总结升华 48%</span><span class="m">号召展望 32% · 部署要求 13%</span></div>
+      <div class="bar"><i style="width:48%"></i></div>
+      <div class="row"><span class="k">论证四柱</span><span class="v">领袖论述 1628</span><span class="m">案例 1302 · 历史纵深 1158 · 数据支撑 1096</span></div>
+      <div class="bar"><i style="width:100%"></i></div>
+      <div class="row"><span class="k">修辞武器</span><span class="v">排比 1748</span><span class="m">比喻 1018 · 引用典故 862 · 对仗 629 · 数字对比 610</span></div>
+      <div class="bar"><i style="width:100%"></i></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>五类用法 <span class="en">How to use it</span></h2>
+    <div class="cards">
+      <div class="card">
+        <h3>✍️ 写 · 从零到稿</h3>
+        <p>给主题 + 场合 + 受众，大师按六步法成稿。</p>
+        <code>帮我写一篇全区数字经济工作会议讲话，五分钟，受众是各局办负责人</code>
+      </div>
+      <div class="card">
+        <h3>🔧 改 · 对症优化</h3>
+        <p>贴入原文 + 痛点，四维体检并给修改前后对照。</p>
+        <code>这份总结空话多、没数据，按求是体改一版，结尾要有号召力</code>
+      </div>
+      <div class="card">
+        <h3>🧭 评 · 打分点评</h3>
+        <p>结构/开头结尾/论证/语言各给分，附最该改的一处。</p>
+        <code>点评我的发言稿：四维各打分，指出最该改的地方</code>
+      </div>
+      <div class="card">
+        <h3>🎯 仿 · 学风格</h3>
+        <p>给样本段落，先拆解风格再仿写，可指定"更有领导味"。</p>
+        <code>按《署名文章》风格，把这段理论阐释写得更凝练有力</code>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>发挥全力的五个设定 <span class="en">Tips</span></h2>
+    <table>
+      <tr><th>设定</th><th>为什么重要</th></tr>
+      <tr><td>1. 说清文种</td><td>讲话/报告/发言/心得/解读骨架不同</td></tr>
+      <tr><td>2. 说清受众</td><td>上级汇报 / 下级动员 / 平级交流语气差异大</td></tr>
+      <tr><td>3. 给足背景</td><td>本地案例、数据、会议要求，喂得越多越实</td></tr>
+      <tr><td>4. 指定长度场合</td><td>5 分钟 vs 半小时直接决定结构密度</td></tr>
+      <tr><td>5. 迭代而不贪一次</td><td>先骨架→你确认→再填肉→再润色，质量更高</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>推荐工作流 <span class="en">Five-step loop</span></h2>
+    <div class="flow">
+      <div class="step"><b>1 定调</b>报文种+主题，大师给出站位与骨架</div>
+      <div class="step"><b>2 立骨</b>确认或微调结构（默认总分总）</div>
+      <div class="step"><b>3 填肉</b>四柱论证，逐节补正文</div>
+      <div class="step"><b>4 润色</b>换起笔/收口，排比对仗提气</div>
+      <div class="step"><b>5 质检</b>政治/结构/语言/内容四维过一遍</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>常见问题 <span class="en">FAQ</span></h2>
+    <details><summary>会不会太"模板感"？</summary><p>主干走的是 2105 篇统计里最高频的打法，天然贴近官方文风；但素材必须你来给，空对空才会空泛。</p></details>
+    <details><summary>政策数据准不准？</summary><p>技能保证"写得好"，不保证"数据最新"。涉及口径请以所在单位的成文依据为准。</p></details>
+    <details><summary>能模仿某位领导或范文的风格吗？</summary><p>能。给一段样本，它先拆解风格再仿写。</p></details>
+    <details><summary>哪些话能触发它？</summary><p>公文大师 / 写公文 / 公文写作 / 领导讲话 / 工作报告 / 政策文件 / 求是体 / 发言稿 / 心得体会。</p></details>
+  </section>
+
+  <footer>
+    公文大师 gongwen-master v5.0.0 · Gongwen Master Contributors © Apache-2.0 · 微信  · <br>
+    数据底座：求是 2105 篇（qiushi.db）｜ 蒸馏统计：gongwen_master_role.json
+  </footer>
+
+</div>
+</body>
+</html>

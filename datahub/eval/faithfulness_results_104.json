@@ -1,0 +1,533 @@
+{
+ "n": 104,
+ "judged": 0,
+ "refusals": 0,
+ "errors": 104,
+ "faithfulness_mean": 0.0,
+ "threshold": 0.85,
+ "error_rate": 1.0,
+ "error_budget": 0.2,
+ "pass": false,
+ "detail": [
+  {
+   "q": "新质生产力",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "人工智能产业发展",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "数字经济",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "乡村振兴",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "共同富裕",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "中国式现代化",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "高质量发展",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "全过程人民民主",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "人类命运共同体",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "双碳目标碳达峰碳中和",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "经济形势不太好怎么做好稳就业",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "年轻人不想生小孩人口怎么办",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "芯片被卡脖子怎么办",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "给老百姓减负少跑腿",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "城里和农村差距怎么缩小",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "环境还要不要保护了",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "老师的地位待遇",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "基层治理现代化",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "科技自立自强",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "全面深化改革",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "生态文明建设",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "文化自信",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "粮食安全",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "实体经济",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "民心是最大的政治",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "斗争精神",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "自我革命",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "江山就是人民人民就是江山",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "马克思主义基本原理同中华优秀传统文化相结合",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "现代化产业体系",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "全面深化改革和全面依法治国的关系",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "高质量发展和共同富裕怎么协同",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "新质生产力和传统产业改造升级",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "中国式现代化和人类命运共同体",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "就业优先政策和稳就业",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "全过程人民民主和协商民主",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "自我革命和从严治党",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "粮食安全和种业振兴",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "双碳目标和能源安全",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "现代化产业体系和实体经济",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "基层治理和市域治理",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "共同富裕和分配制度",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "科技自立自强和原始创新",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "绿色发展方式和双碳",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "文化自信和文化强国",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "全面贯彻新发展理念",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "总体国家安全观",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "六个坚持的世界观和方法论",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "两个结合的具体内涵",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "三个务必",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "四个意识四个自信两个维护",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "五个必由之路",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "全过程人民民主的制度载体",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "大食物观",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "以人民为中心的发展思想",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "碳达峰碳中和目标下的能源转型",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "数据要素市场化配置",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "平台经济规范健康发展",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "民营经济发展壮大",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "扩大内需战略和消费",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "坚持人民至上",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "建设农业强国",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "推进新型工业化",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "深化一带一路合作",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "发展全过程人民民主",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "铸牢中华民族共同体意识",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "维护产业链供应链安全",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "健全社会保障体系",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "加快建设教育强国",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "推进高水平对外开放",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "房子太贵年轻人买不起怎么办",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "看病贵看病难怎么破",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "义务教育阶段学生负担治理与双减落地",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "就业压力大毕业生怎么找工作",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "养老钱不够花怎么办",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "村里的地怎么流转更值钱",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "企业融资难融资贵",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "网络谣言满天飞怎么治",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "老百姓对食品安全不放心",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "基层干部压力大怎么减负",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "国企干部混日子没干劲怎么激发",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "关键核心技术总被别人捏着脖子",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "个体户小老板生意难做贷款难",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "单位招不到能干活的人",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "传承中华优秀传统文化坚定文化自信",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "推进法治社会建设让公平正义可感可触",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "工厂生产的东西质量差卖不出去",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "外国市场进不去生意做不大",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "耕地撂荒种粮不挣钱谁来种地",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "煤电油气保供稳价压力增大",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "直播带货冲击实体店怎么转型",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "收入差距还在拉大怎么调",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "雾霾天河水臭怎么根治",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "大学生躺平啃老不想奋斗",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "马路重复挖地下管线乱",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "脱贫地区特色产业增收帮扶",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "开会发文太多实际事情没办",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "数据被国外云端拿捏不放心",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "维护劳动者休息权与就业权益保障",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "小区物业和业主老吵架",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "深化放管服改革优化营商环境便民服务",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "名胜古迹被破坏没人管",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "贫困地区孩子上学还是难",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  },
+  {
+   "q": "医保报销比例低自费多",
+   "error": "generate: HTTP Error 400: Bad Request",
+   "answer": null
+  }
+ ]
+}

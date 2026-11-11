@@ -1,0 +1,7 @@
+interface:
+  display_name: "会议纪要写作"
+  short_description: "面向机关单位常用公文材料场景的AI辅助写作专项技能"
+  brand_color: "#1F6FEB"
+  default_prompt: "Use $govdoc-minutes to turn meeting records into official minutes."
+policy:
+  allow_implicit_invocation: true

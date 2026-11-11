@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>公文大师 v7.1.2 · skill 套件运作逻辑图</title>
+<style>
+  :root{
+    --purple:#534AB7;--purple-bg:#EEEDFE;--purple-md:#CECBF6;
+    --teal:#0F6E56;--teal-bg:#E1F5EE;--teal-md:#9FE1CB;
+    --blue:#185FA5;--blue-bg:#E6F1FB;--blue-md:#B5D4F4;
+    --amber:#854F0B;--amber-bg:#FAEEDA;--amber-md:#FAC775;
+    --green:#3B6D11;--green-bg:#EAF3DE;--green-md:#C0DD97;
+    --pink:#993556;--pink-bg:#FBEAF0;--pink-md:#F4C0D1;
+    --ink:#2C2C2A;--muted:#888780;--line:#D3D1C7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI","Microsoft YaHei",sans-serif;background:#FAFAF8;color:var(--ink);padding:28px 20px;line-height:1.6}
+  .wrap{max-width:1180px;margin:0 auto}
+  h1{font-size:20px;font-weight:500;margin-bottom:4px}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:22px}
+  .lane{border-radius:14px;padding:14px 16px 16px;margin-bottom:18px;border:1px solid var(--line)}
+  .lane-title{font-size:13px;font-weight:500;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .lane-title .no{display:inline-flex;width:20px;height:20px;border-radius:50%;color:#fff;align-items:center;justify-content:center;font-size:11px}
+  .row{display:flex;gap:14px;align-items:stretch;flex-wrap:wrap}
+  .node{border-radius:10px;padding:10px 14px;min-width:150px;border:1px solid var(--line);background:#fff;flex:1}
+  .node b{display:block;font-size:13px;font-weight:500}
+  .node span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+  .arrow{align-self:center;color:var(--muted);font-size:18px;flex:0 0 auto;padding:0 2px}
+  .chain{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .chip{border-radius:999px;padding:5px 13px;font-size:12px;background:#fff;border:1px solid var(--line);white-space:nowrap}
+  .note{font-size:12px;color:var(--muted);margin-top:10px;padding-top:8px;border-top:1px dashed var(--line)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:6px 0 20px}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .footer{margin-top:18px;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>公文大师 v7.1.2 · skill 套件运作逻辑图</h1>
+  <div class="sub">25 技能 · 五层泳道 · 调用关系与数据流转（Gongwen Master Contributors © Apache-2.0）</div>
+
+  <div class="legend">
+    <span><i style="background:var(--purple-bg);border:1px solid var(--purple)"></i>交互层</span>
+    <span><i style="background:var(--teal-bg);border:1px solid var(--teal)"></i>路由与秘书</span>
+    <span><i style="background:var(--blue-bg);border:1px solid var(--blue)"></i>能力层</span>
+    <span><i style="background:var(--amber-bg);border:1px solid var(--amber)"></i>数据层</span>
+    <span><i style="background:var(--green-bg);border:1px solid var(--green)"></i>交付与门禁</span>
+    <span><i style="background:var(--pink-bg);border:1px solid var(--pink)"></i>画像/秘书</span>
+  </div>
+
+  <!-- ① 交互层 -->
+  <div class="lane" style="background:var(--purple-bg);border-color:var(--purple-md)">
+    <div class="lane-title" style="color:var(--purple)"><span class="no" style="background:var(--purple)">1</span>交互层</div>
+    <div class="row">
+      <div class="node" style="background:#fff">
+        <b>用户请求</b><span>大白话 / 点名「公文大师」 / 关键词</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node" style="background:#fff;border-color:var(--purple)">
+        <b>gongwen-master 驻留路由</b><span>单入口 · 判级 S/L/M/H · 会话内驻留</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node" style="background:var(--pink-bg);border-color:var(--pink)">
+        <b>Step 0 / 0.5 画像与秘书</b><span>user-profile.md 加载 · 秘书简报 ≤3 行</span>
+      </div>
+    </div>
+    <div class="note">秘书四能力：公文日历预告（周期归纳）· 代拟偏好直接套用（成稿尾注纠偏）· 多材料专项串联 · 开场简报（降噪降频）</div>
+  </div>
+
+  <!-- ② 路由与秘书层 -->
+  <div class="lane" style="background:var(--teal-bg);border-color:var(--teal-md)">
+    <div class="lane-title" style="color:var(--teal)"><span class="no" style="background:var(--teal)">2</span>路由与秘书层</div>
+    <div class="chain">
+      <span class="chip"><b>关键词命中</b> C2数据&gt;C引用&gt;B风格&gt;A文种&gt;D新手&gt;E动作</span>
+      <span class="arrow">→</span>
+      <span class="chip">语义路由兜底（口语向量 94%）</span>
+      <span class="arrow">→</span>
+      <span class="chip">五维意图解析</span>
+      <span class="arrow">→</span>
+      <span class="chip">LLM 语义路由</span>
+      <span class="arrow">→</span>
+      <span class="chip">保底框架</span>
+      <span class="arrow">⇒</span>
+      <span class="chip" style="border-color:var(--teal);font-weight:500">子技能执行</span>
+    </div>
+    <div class="note">新手信号（不会写/第一次）优先级提前：先走 onboarding 任务模板卡片，成稿后顺势采集画像（一次 ≤2 问）</div>
+  </div>
+
+  <!-- ③ 能力层 -->
+  <div class="lane" style="background:var(--blue-bg);border-color:var(--blue-md)">
+    <div class="lane-title" style="color:var(--blue)"><span class="no" style="background:var(--blue)">3</span>能力层（四大技能族）</div>
+    <div class="row">
+      <div class="node" style="border-color:var(--blue)">
+        <b>18 文种族</b><span>notice / letter / report …（shared-templates 共享模板库）</span>
+      </div>
+      <div class="node" style="border-color:var(--blue)">
+        <b>笔杆子 ×7</b><span>biganzi 风格路由 · 渐进披露</span>
+      </div>
+      <div class="node" style="border-color:var(--blue)">
+        <b>书籍行文 ×6</b><span>shuji 蒸馏体（置身事内/以利为利…）</span>
+      </div>
+      <div class="node" style="border-color:var(--blue)">
+        <b>polish + workflow</b><span>质检 5 维 · 场景卡 12×74 文书 · 部门卡 9 张</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 数据层 -->
+  <div class="lane" style="background:var(--amber-bg);border-color:var(--amber-md)">
+    <div class="lane-title" style="color:var(--amber)"><span class="no" style="background:var(--amber)">4</span>数据层（检索与记忆供能）</div>
+    <div class="row">
+      <div class="node" style="border-color:var(--amber)">
+        <b>qiushi 库 5,761 篇</b><span>hybrid3 检索 + topic_synonyms 口语扩展（eval 99% / MRR 0.946）</span>
+      </div>
+      <div class="node" style="border-color:var(--amber)">
+        </div>
+      <div class="node" style="border-color:var(--amber)">
+        <b>user-profile.md</b><span>画像增量沉淀（复利）：明示高/推断中/纠错→禁忌</span>
+      </div>
+    </div>
+    <div class="note">数据流：口语 query → 同义词扩展（原词 1.0 + 扩展词 0.5 RRF）→ 召回 → 溯源卡片 format_citation_card → 正文引用</div>
+  </div>
+
+  <!-- ⑤ 交付与门禁层 -->
+  <div class="lane" style="background:var(--green-bg);border-color:var(--green-md)">
+    <div class="lane-title" style="color:var(--green)"><span class="no" style="background:var(--green)">5</span>交付与门禁层</div>
+    <div class="row">
+      <div class="node" style="border-color:var(--green)">
+        <b>export_govdoc 交付</b><span>自研 GB/T 9704 docx 引擎（红头/字体/页码）+ 溯源附注</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node" style="border-color:var(--green)">
+        <b>AI 味检测（质检）</b><span>L1 词汇 21 规则 + L2 结构 5 类 + L3 judge 复核，评分 ≥70 过门禁</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node" style="border-color:var(--green)">
+        <b>门禁评测</b><span>verify 25 · validate 24 · 回归 45 · faithfulness 0.954</span>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node" style="border-color:var(--green)">
+        <b>install-gongwen</b><span>25 技能+datahub → skills/gongwen-skills 固化</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    闭环：成稿修改信号 → user-profile.md 沉淀 → 下次起草直接套用（秘书复利）｜ eval 拒答样本 → topic_synonyms 词典扩充（检索复利）｜ 门禁全部历史最高（99% / MRR 0.946）
+  </div>
+</div>
+</body>
+</html>
