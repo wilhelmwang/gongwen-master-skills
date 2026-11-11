@@ -2,6 +2,8 @@
 
 **中文公文写作的 Agent 技能包。装好即用，说人话就能出稿，每条引用都能回到原文。**
 
+**简体中文** | [English](README_EN.md)
+
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-8.1.10-green.svg)](VERSION)
 [![Python](https://img.shields.io/badge/python-3.10%2B-3776ab.svg)](requirements.txt)
