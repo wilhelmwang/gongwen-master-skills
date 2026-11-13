@@ -6,7 +6,6 @@
 
 v1.1：与 datahub/paths.py 对齐——外置资产由 assets.json 的绝对路径登记承载，
 外置不可用时消费方应经 paths 回退包内（形态 B）或显式降级（形态 C）。
-注意：合并库中地方业务表带 hs_ 前缀（hs_facts / hs_pages / …）。
 """
 import json, os, sqlite3
 
@@ -84,6 +83,3 @@ if __name__ == '__main__':
     print('data_root:', dh.data_root)
     n = dh.query('qs.articles', 'SELECT COUNT(*) FROM articles')[0][0]
     print('qs.articles:', n, '篇')
-    # 合并库中地方表带 hs_ 前缀（与其 FTS 虚表的不同前缀规则见 schema-registry v2）
-    n2 = dh.query('hs.data', 'SELECT COUNT(*) FROM hs_facts')[0][0]
-    print('hs.data hs_facts:', n2, '条')

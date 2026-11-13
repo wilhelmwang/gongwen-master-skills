@@ -1,5 +1,9 @@
 ---
 name: gongwen-master
+slug: gongwen-master
+displayName: 公文大师
+summary: "中文公文写作 Agent 技能包：16 文种起草、润色质检、GB/T 9704 排版核查、六种政务文风与九种书籍文风、权威语料检索与引用溯源，装好即用。"
+license: Apache-2.0
 tags: [gongwen, 公文大师, 公文写作, 中文公文, 机关材料, 求是]
 description: >-
   点名触发词：公文大师、用公文大师（在点名式触发工具中直接说出即调用）。
@@ -16,7 +20,7 @@ version: "8.1.10"
 compatibility: "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；引擎脚本需 Python 3.10+ 与 requirements.txt 依赖（jieba/numpy/scikit-learn/rank-bm25）；数据层 datahub/ 随包（详见 requires）"
 requires:
   engine: "datahub/scripts/qs/qiushi_engine.py（求是检索）"
-  data: "随包 datahub/sqlite/gongwen_corpus.db.gz（解压后 200MB，14,933 篇国务院公报及中央级公开文件）；理论刊物与图书语料不随包分发，如需检索请自备并经 GONGWEN_DATA_ROOT 注册；物理路径统一经 datahub/paths.py 解析"
+  data: "随包 datahub/sqlite/gongwen_corpus.db.gz（解压后 198MB，14,865 篇国务院公报及中央级公开文件）；理论刊物与图书语料不随包分发，如需检索请自备并经 GONGWEN_DATA_ROOT 注册；物理路径统一经 datahub/paths.py 解析"
   deps: "jieba, numpy, scikit-learn, rank-bm25, python-docx（requirements.txt；docx 用于 v7.0 导出模式）"
   env: "GONGWEN_BGE_MODEL（可选，向量路）；GONGWEN_LLM_KEY 或 OPENCODE_GO_API_KEY（团队模式 LLM 评审）"
   subskills: "包内嵌套模块 references/{govdoc-*(22 受治理 + 3 master 自带), govdoc-styles, shuji, article-review, qiushi-db, install-gongwen}/SKILL.md（29 个一级模块全量随包分发；缺任一走保底框架）"

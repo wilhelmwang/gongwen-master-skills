@@ -33,75 +33,6 @@ CREATE TABLE golden_quotes (
     id INTEGER PRIMARY KEY,
     type TEXT, quote TEXT, article TEXT, author TEXT, idx INTEGER);
 
-CREATE TABLE hs_core_series (
-    year INTEGER, topic TEXT, indicator TEXT,
-    value REAL, unit TEXT, growth REAL, source TEXT,
-    PRIMARY KEY (year, indicator)
-);
-
-CREATE TABLE hs_county_series (
-    indicator TEXT, year INTEGER, region TEXT, value REAL, unit TEXT, source TEXT
-);
-
-CREATE TABLE hs_doc_sources (
-    doc_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    doc_type TEXT,
-    doc_name TEXT,
-    file_path TEXT,
-    year INTEGER,
-    pages INTEGER,
-    note TEXT
-);
-
-CREATE TABLE hs_facts (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        year INTEGER, topic TEXT, indicator TEXT,
-        value REAL, unit TEXT, growth REAL, source TEXT
-    , page_num INTEGER, excerpt TEXT, doc_ref TEXT);
-
-CREATE TABLE hs_forecast (
-    indicator TEXT, unit TEXT, arima_order TEXT, base_year INTEGER, base_value REAL,
-    fc1_year INTEGER, fc1_value REAL, fc2_year INTEGER, fc2_value REAL
-);
-
-CREATE TABLE hs_history_series (
-    year INTEGER, indicator TEXT, value REAL, unit TEXT, note TEXT
-);
-
-CREATE TABLE hs_org_chart (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        branch TEXT NOT NULL,        -- 大类：市委/人大/政府/政协/民主党派/群团
-        group_name TEXT NOT NULL,    -- 分组：工作部门/直属事业单位/专门委员会…
-        org_name TEXT NOT NULL,      -- 机构全称
-        sort_order INTEGER,          -- 页面内顺序
-        source_url TEXT NOT NULL,    -- 原始网页（精确到子页）
-        source_site TEXT,            -- 来源网站名
-        published TEXT,              -- 网页发布日期
-        fetched TEXT,                -- 抓取日期
-        UNIQUE(branch, org_name)
-    );
-
-CREATE TABLE hs_org_duties (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        org_name TEXT NOT NULL,
-        duty_text TEXT NOT NULL,          -- 主要职责（全文/逐条）
-        internal_orgs TEXT,               -- 内设机构（逗号分隔）
-        headcount TEXT,                   -- 编制信息（原文摘录）
-        source_type TEXT NOT NULL,        -- 编办官网 / 部门预算公开 / 手工补录
-        source_url TEXT NOT NULL,
-        published TEXT,
-        fetched TEXT,
-        UNIQUE(org_name, source_url)
-    );
-
-CREATE TABLE hs_page_kw_index (
-    keyword TEXT PRIMARY KEY, hits TEXT
-);
-
-CREATE TABLE hs_pages (id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER NOT NULL,pdf_name TEXT NOT NULL,page_num INTEGER NOT NULL,content TEXT NOT NULL,has_data INTEGER DEFAULT 0);
-
-CREATE TABLE hs_pages_seg (id INTEGER PRIMARY KEY, seg TEXT);
-
 CREATE TABLE jhsjk_articles (
     id TEXT PRIMARY KEY,
     title TEXT,
@@ -134,10 +65,6 @@ CREATE TABLE lineage (
     synced_at TEXT, sync_mode TEXT);
 
 CREATE TABLE meta("key" TEXT,value TEXT);
-
-CREATE VIRTUAL TABLE pages_fts USING fts5(content, content='hs_pages', content_rowid='id', tokenize='trigram');
-
-CREATE VIRTUAL TABLE pages_fts_jieba USING fts5(seg, content='hs_pages_seg', content_rowid='id', tokenize='unicode61');
 
 CREATE TABLE quotes_noise ( id INTEGER NOT NULL, kind TEXT NOT NULL, reason TEXT, rule_ver TEXT NOT NULL, marked_at TEXT, PRIMARY KEY (id, kind));
 

@@ -8,7 +8,7 @@
   1. 技能完整性（v8.0.0：1 顶层 gongwen-master + references/ 嵌套模块，与 skills_manifest 单一来源比对）
   2. shuji 九子模块
   3. 数据层形态与资产在位性（A 外置 / B 包内 / C 降级，统一经 datahub/paths.py 解析）
-  4. 数据库可打开性（articles / hs_facts / hs_pages）
+  4. 数据库可打开性（articles）
   5. 金句库条目数（防缩水回归）
   6. 依赖可用性（jieba / numpy / scikit-learn / rank_bm25）
   7. 检索抽测 + 索引覆盖率 + FTS 完整性

@@ -151,13 +151,12 @@ flowchart TD
 
 ---
 
-## 四、五条数据流
+## 四、四条数据流
 
 1. **查询扩展流**：口语 query → `topic_synonyms.expand_query`（27 组词典）→ hybrid3 检索（原词 1.0 + 扩展词 0.5 半权 RRF）→ 命中率 99%
 2. **画像流**：Step 0 读 `user-profile.md` → 起草直接套代拟偏好 → 成稿尾注纠偏 → 修改信号增量沉淀回画像（复利）
-3. **职责流**：`hs_org_duties`（101/101 全覆盖，权威三级标注）→ `duty-to-scenario` 生成部门场景卡 → 场景卡路由到 12 文书路径场景
-4. **质检流**：成稿 → AI 味检测器（L1 词汇 21 规则 + L2 结构 5 类）→ 改写建议 → L3 judge 语义复核 → 五段式质检报告
-5. **交付流**：成稿 → `docgen_export`（GB/T 9704 红头/字体/页码，零第三方依赖）→ .docx + 溯源附注
+3. **质检流**：成稿 → AI 味检测器（L1 词汇 21 规则 + L2 结构 5 类）→ 改写建议 → L3 judge 语义复核 → 五段式质检报告
+4. **交付流**：成稿 → `docgen_export`（GB/T 9704 红头/字体/页码，零第三方依赖）→ .docx + 溯源附注
 
 ---
 
@@ -172,9 +171,6 @@ gongwen_corpus.db（749.6MB / 49 表 / 约 18.0 万行（非阴影表））
 ├── 领袖域   jhsjk_articles 14,901 篇 / 2,222 万字（2012-11 ~ 2026-09）
 ├── 书籍域   books24（11 本 92 章 303 万字全文）+ lilun_books（14,253 册索引 / 27.7 亿字）
 ├── 引用域   statements 31,315 + golden_quotes 31,315（排比/号召/对仗/论断四型）
-├── 地方域   hs_* 11 表 15,400 行（hs_facts 3,558 带页码 · hs_pages 4,666 页
-│            · hs_org_chart 101 · hs_org_duties 106 · hs_forecast 4）
-│            ★ 业务表带 hs_ 前缀，但其 FTS 虚表 pages_fts / pages_fts_jieba **不带**前缀
 └── 治理域   lineage 5 源溯源（来源库/行数/同步时间/断点）
 
 检索层：5 套 FTS + 9 个索引；模式 hybrid3(默认) / hybrid / tfidf / bm25 / vec

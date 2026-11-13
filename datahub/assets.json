@@ -1,249 +1,249 @@
 {
-  "schema_version": "1.0",
-  "data_root": null,
-  "bge_model": null,
-  "bge_model_policy": "bge 向量模型目录：解析顺序 GONGWEN_BGE_MODEL（环境变量覆盖）→ 本字段。未配置或路径无效时 hybrid3 的向量路降级为词面检索（显式报出，非静默）；启用后检索基线 99% / MRR 0.974 / gold 74.0%（20,680 篇语料实测），v7.5.0 之前被误记为「关闭」。",
-  "path_policy": "资产物理路径不再硬编码在消费方：统一经 datahub/paths.py 解析（GONGWEN_DATA_ROOT 环境变量 → 本文件 data_root → 内置默认 → 包内 datahub/ 回退）。下列 asset.path 为登记的外置真值；外置不可用时解析器自动回退包内路径（形态 B），两处皆无则显式降级（形态 C）。",
-  "assets": [
-    {
-      "name": "qs.articles",
-      "type": "sqlite",
-      "engine": "datahub/scripts/qs/qiushi_engine.py search",
-      "path": null,
-      "readonly": false,
-      "doc": "★合并库（方案A）：6,037 主库+14,901 jhsjk+14,253 lilun+地方 11 表+论断/金句/分类索引",
-      "lineage": {
-        "source": "抓取管线（crawl_*）",
-        "produces": [
-          "qs.index",
-          "qs.vectors",
-          "qs.statements",
-          "corpus.jinyu"
-        ]
-      }
-    },
-    {
-      "name": "qs.index",
-      "type": "file",
-      "format": "pickle",
-      "path": null,
-      "readonly": true,
-      "rebuild": "python datahub/scripts/qs/qiushi_engine.py reindex",
-      "lineage": {
-        "from": "qs.articles",
-        "rebuild": "qiushi_engine reindex"
-      }
-    },
-    {
-      "name": "qs.vectors",
-      "type": "file",
-      "format": "npy",
-      "meta": "derived/qs_vectors.json",
-      "path": null,
-      "readonly": true,
-      "rebuild": "python datahub/scripts/qs/embed_qiushi_vec.py",
-      "lineage": {
-        "from": "qs.articles",
-        "rebuild": "embed_qiushi_vec / embed_incremental"
-      }
-    },
-    {
-      "name": "qs.statements",
-      "type": "file",
-      "format": "json",
-      "path": null,
-      "readonly": true,
-      "rebuild": "python datahub/scripts/qs/extract_statements.py",
-      "lineage": {
-        "from": "qs.articles",
-        "rebuild": "extract_statements"
-      }
-    },
-    {
-      "name": "corpus.jinyu",
-      "type": "file",
-      "format": "md",
-      "path": null,
-      "readonly": true,
-      "doc": "金句库全量 31,614 条（去噪 v2）",
-      "lineage": {
-        "from": "qs.articles",
-        "rebuild": "规则提取（31,892→31,614 去噪 v2）"
-      }
-    },
-    {
-      "name": "corpus.qs_corpus",
-      "type": "dir",
-      "path": "derived/corpus",
-      "readonly": true,
-      "doc": "求是语料快照（分类txt/面对面/图书）",
-      "lineage": {
-        "from": "qs.articles",
-        "note": "分类/面对面/图书快照"
-      }
-    },
-    {
-      "name": "ops.freshness",
-      "type": "ops",
-      "path": "-",
-      "format": "ops",
-      "doc": "数据新鲜度运维（v7.5.1 起三条承诺均可执行、可查询）：①每周快照 python gongwen_tool.py snapshot --keep 3（含轮转，里程碑免删）；②URL 不变内容改写检测 python freshness.py --hash-verify + crawl_qiushi_incremental.py --check-rewrites N（哈希边车 qs_content_hash.json，sha256 规范化正文；**v7.5.1 之前此项为虚假声明——全包无任何 hash 实现，爬虫只按 URL 判重**）；③年鉴季提醒 python freshness.py --status（4-5 月/10 月核对地方统计公报补 hs_facts）。总览：python gongwen_tool.py freshness"
-    },
-    {
-      "name": "gongbao.corpus",
-      "type": "sqlite",
-      "path": null,
-      "readonly": false,
-      "doc": "国务院公报全量（2000-2026，约 1.5 万篇：国发/国办发/国函/行政法规/任免等）。采集器 datahub/scripts/corpus/crawl_gongbao.py（两阶段：--enum 枚举 → --fetch 正文 → --build 入库）；独立库 + trigram FTS（gongbao_fts；≥3 字用 MATCH，2 字用 LIKE 兜底）。**已于 v7.7.0 并入 articles 表**（data_source=国务院公报，URL 零重叠，词面索引 20,680 篇已重建）；本独立库保留为采集源底账。向量仍仅覆盖求是系 5,845 篇。采集于 2026-09-12，个人使用。"
-    },
-    {
-      "name": "zhengce.gw",
-      "type": "sqlite",
-      "path": null,
-      "readonly": false,
-      "doc": "国务院政策文件库·国务院文件（国发/国办发/国函等）5,998 篇全文库（清单 6,217，217 篇为附件型/抽取失败页）。采集器 crawl_gongbao.py --t zhengcelibrary_gw。trigram FTS。 2026-09-13 采集，独立库未并入主库。"
-    },
-    {
-      "name": "zhengce.bm",
-      "type": "sqlite",
-      "path": null,
-      "readonly": false,
-      "doc": "国务院政策文件库·部门文件 12,685 篇全文库（清单 12,785，91 篇未采）。采集器 crawl_gongbao.py --t zhengcelibrary_bm。trigram FTS。 2026-09-13 采集，独立库未并入主库。"
-    },
-    {
-      "name": "zhengce.other",
-      "type": "sqlite",
-      "path": null,
-      "readonly": false,
-      "doc": "政策文件库·其他文件 8,119 篇（国务院政策文件库 otherfile 类；v7.7.2 新发现类别）。trigram FTS。 采集器 crawl_gongbao.py --t zhengcelibrary|zhengce（--cat 过滤）。2026-09-13 入库，独立库未并入主库；含接口元数据 cat/summary/puborg/pcode/fileno。"
-    },
-    {
-      "name": "zhengce.zy",
-      "type": "sqlite",
-      "path": null,
-      "readonly": false,
-      "doc": "政策文件库·中央文件 550 篇（zhongyangfile 类；t=zhengce 独有）。trigram FTS。 采集器 crawl_gongbao.py --t zhengcelibrary|zhengce（--cat 过滤）。2026-09-13 入库，独立库未并入主库；含接口元数据 cat/summary/puborg/pcode/fileno。"
-    },
-    {
-      "name": "samples.corpus",
-      "type": "sqlite",
-      "engine": "datahub/scripts/corpus/build_samples_db.py",
-      "path": null,
-      "readonly": false,
-      "doc": "五类文种范本池分层库：L0 raw_pages 原始层 / L1 samples 治理层 / L2 review_state 审核台账。14,701 篇（工作报告 5,089 / 消息 3,048 / 工作总结 2,633 / 调研报告 2,343 / 会议纪要 1,588）。trigram FTS（≥3 字用 MATCH，2 字须 LIKE 兜底）。**不并入主库检索**——主库用于写作引证，混入县区级范本会让引文出处变成基层文件。JSONL（govdoc_samples/collected.jsonl）是唯一事实源，本库为派生物，可整库重建。**存量 14,701 篇无 L0**（clean_version=legacy_no_raw、raw_ref 为 NULL）：旧采集器只存清洗结果、原文未留，属永久性数据缺陷；2026-09-14 起采集器已落 raw_text+raw_sha256+clean_version，新数据可整层重洗。同源同骨架近重复 1,931 篇，待按 skel 去重。",
-      "lineage": {
-        "source": "datahub/scripts/corpus/{probe_fast,sweep_deep,sweep_portals,sweep_list,sweep_columns}.py 采集 → collected.jsonl",
-        "rebuild": "python datahub/scripts/corpus/build_samples_db.py（--dry-run 预览 / --incremental 增量）"
-      }
-    }
-  ],
-  "rebuild_drill": {
-    "date": "2026-09-05",
-    "steps": {
-      "reindex": {
-        "status": "PASS",
-        "note": "TF-IDF+BM25 5569 篇重建成功，verify 索引覆盖 100%"
-      },
-      "extract": {
-        "status": "PASS",
-        "note": "论断库 21,320 条/覆盖 5,348 篇/6.9MB 重抽成功"
-      },
-      "embed": {
-        "status": "SKIP-GATED",
-        "note": "全量嵌入约 1-2h（5,569 篇×6 块），门禁验证通过：脚本可启动、环境变量门禁生效（无 GONGWEN_BGE_MODEL 时 exit 2 明确报错）；全量重放留维护窗口执行"
-      }
-    },
-    "qs_index_cold_load_s": 2.24,
-    "verifiable": "重建后 verify 23/23 全绿"
+ "schema_version": "1.0",
+ "data_root": null,
+ "bge_model": null,
+ "bge_model_policy": "bge 向量模型目录：解析顺序 GONGWEN_BGE_MODEL（环境变量覆盖）→ 本字段。未配置或路径无效时 hybrid3 的向量路降级为词面检索（显式报出，非静默）；启用后检索基线 99% / MRR 0.974 / gold 74.0%（20,680 篇语料实测），v7.5.0 之前被误记为「关闭」。",
+ "path_policy": "资产物理路径不再硬编码在消费方：统一经 datahub/paths.py 解析（GONGWEN_DATA_ROOT 环境变量 → 本文件 data_root → 内置默认 → 包内 datahub/ 回退）。下列 asset.path 为登记的外置真值；外置不可用时解析器自动回退包内路径（形态 B），两处皆无则显式降级（形态 C）。",
+ "assets": [
+  {
+   "name": "qs.articles",
+   "type": "sqlite",
+   "engine": "datahub/scripts/qs/qiushi_engine.py search",
+   "path": null,
+   "readonly": false,
+   "doc": "★合并库（方案A）：6,037 主库+14,901 jhsjk+14,253 lilun+地方 11 表+论断/金句/分类索引",
+   "lineage": {
+    "source": "抓取管线（crawl_*）",
+    "produces": [
+     "qs.index",
+     "qs.vectors",
+     "qs.statements",
+     "corpus.jinyu"
+    ]
+   }
   },
-  "install_matrix": {
-    "date": "2026-09-05",
-    "targets": [
-      {
-        "target": null,
-        "action": "全新安装 --no-deps + smoke",
-        "result": "PASS",
-        "detail": "安装 23/23 + 数据层 + verify 23/23 + 回归 45/45 + 冒烟 7/7"
-      },
-      {
-        "target": "WorkBuddy skills（~/.workbuddy/skills）",
-        "action": "探测（不安装，防污染真实环境）",
-        "result": "PASS",
-        "detail": "check-target 正确识别并回显安装目标"
-      },
-      {
-        "target": "无 BGE 模型环境",
-        "action": "干净 env 跑 qs 引擎",
-        "result": "PASS（显式降级）",
-        "detail": "词面检索正常返回，无崩溃；降级为 TF-IDF+BM25 双路"
-      }
-    ],
-    "fix_note": "v6.9.0 修复 install.py 技能清单仍为 41 旧清单（三轮合并后目录已不存在）→ 安装必败；已同步 23 清单 + ROOT_FILES 补 rules_regression/gongwen_tool"
+  {
+   "name": "qs.index",
+   "type": "file",
+   "format": "pickle",
+   "path": null,
+   "readonly": true,
+   "rebuild": "python datahub/scripts/qs/qiushi_engine.py reindex",
+   "lineage": {
+    "from": "qs.articles",
+    "rebuild": "qiushi_engine reindex"
+   }
   },
-  "fts_fastpath": {
-    "table": "articles_fts",
-    "rows": 5569,
-    "built": "2026-09-05",
-    "query_latency_ms": 1.5,
-    "full_path_latency_ms": 3641,
-    "switch": "GONGWEN_FAST=1（缺表自动降级全量路）",
-    "incremental": "rebuild_fts.py --incremental；爬虫增量已自动联动（crawl_qiushi_incremental --rebuild 尾部）",
-    "eval_gate": "104 条 99%/MRR 0.974/gold 74.0%（20,680 篇语料实测）"
+  {
+   "name": "qs.vectors",
+   "type": "file",
+   "format": "npy",
+   "meta": "derived/qs_vectors.json",
+   "path": null,
+   "readonly": true,
+   "rebuild": "python datahub/scripts/qs/embed_qiushi_vec.py",
+   "lineage": {
+    "from": "qs.articles",
+    "rebuild": "embed_qiushi_vec / embed_incremental"
+   }
   },
-  "judge_model": {
-    "default": "deepseek-v4-pro（GONGWEN_JUDGE_MODEL 可覆盖）",
-    "since": "v6.9.0",
-    "evidence": {
-      "mimo-v2.5": "判别一致率 1/3，四维区分度失效（A/C 档给分倒挂）→ 弃用于 judge",
-      "deepseek-v4-pro": "判别一致率 3/3，四维区分度 +8~+30（去AI味 +30 最显著）；6 篇双档实测 judge_results_v2_deepseek.json"
-    },
-    "wiring_check": "mock 注入验证 judge_one 全程 model=deepseek-v4-pro PASS（2026-09-05）；真实链路待 opencode 周配额重置后复测（ch1/ch5 已 429）"
+  {
+   "name": "qs.statements",
+   "type": "file",
+   "format": "json",
+   "path": null,
+   "readonly": true,
+   "rebuild": "python datahub/scripts/qs/extract_statements.py",
+   "lineage": {
+    "from": "qs.articles",
+    "rebuild": "extract_statements"
+   }
   },
-  "distribution_zip": {
-    "path": null,
-    "files": 5945,
-    "size_mb": 257,
-    "built": "2026-09-05（批次1-3 修复后终版：version 去重 + 清单同步 + FTS 检查 + README 口径 + CHANGELOG 外置）",
-    "excluded": [
-      "backups_removed_20260904_archived_to_002",
-      "__pycache__"
-    ],
-    "smoke": "解压实测 verify 25 + 回归 45/45 + validate 23/23 + FTS 快路 + 增量幂等 全绿"
+  {
+   "name": "corpus.jinyu",
+   "type": "file",
+   "format": "md",
+   "path": null,
+   "readonly": true,
+   "doc": "金句库全量 31,614 条（去噪 v2）",
+   "lineage": {
+    "from": "qs.articles",
+    "rebuild": "规则提取（31,892→31,614 去噪 v2）"
+   }
   },
-  "databases": {
-    "jhsjk": {
-      "path": null,
-      "type": "sqlite",
-      "rows": 14901,
-      "chars_wan": 2223,
-      "desc": "人民网领袖人物数据库（2012-2026 要闻/讲话类）— 引用源",
-      "archive": "002/45 思想理论语料库",
-      "registered": "2026-09-08"
-    },
-    "lilun": {
-      "path": null,
-      "type": "sqlite",
-      "rows": 14253,
-      "desc": " lilun.cn 思想理论书籍库（277,167 万字）— 书籍行文蒸馏源",
-      "archive": "002/45 思想理论语料库",
-      "note": "scan_only=1 的 1,852 册为纯扫描无文本，蒸馏时跳过",
-      "registered": "2026-09-08"
-    }
+  {
+   "name": "corpus.qs_corpus",
+   "type": "dir",
+   "path": "derived/corpus",
+   "readonly": true,
+   "doc": "求是语料快照（分类txt/面对面/图书）",
+   "lineage": {
+    "from": "qs.articles",
+    "note": "分类/面对面/图书快照"
+   }
   },
-  "updated": "2026-09-13",
-  "merged": {
+  {
+   "name": "ops.freshness",
+   "type": "ops",
+   "path": "-",
+   "format": "ops",
+   "doc": "数据新鲜度运维（v7.5.1 起三条承诺均可执行、可查询）：①每周快照 python gongwen_tool.py snapshot --keep 3（含轮转，里程碑免删）；②URL 不变内容改写检测 python freshness.py --hash-verify + crawl_qiushi_incremental.py --check-rewrites N（哈希边车 qs_content_hash.json，sha256 规范化正文；**v7.5.1 之前此项为虚假声明——全包无任何 hash 实现，爬虫只按 URL 判重**）；③数据发布期提醒 python freshness.py --status（4-5 月/10 月为公开数据集中发布期，可择时更新语料）。总览：python gongwen_tool.py freshness"
+  },
+  {
+   "name": "gongbao.corpus",
+   "type": "sqlite",
+   "path": null,
+   "readonly": false,
+   "doc": "国务院公报全量（2000-2026，约 1.5 万篇：国发/国办发/国函/行政法规/任免等）。采集器 datahub/scripts/corpus/crawl_gongbao.py（两阶段：--enum 枚举 → --fetch 正文 → --build 入库）；独立库 + trigram FTS（gongbao_fts；≥3 字用 MATCH，2 字用 LIKE 兜底）。**已于 v7.7.0 并入 articles 表**（data_source=国务院公报，URL 零重叠，词面索引 20,680 篇已重建）；本独立库保留为采集源底账。向量仍仅覆盖求是系 5,845 篇。采集于 2026-09-12，个人使用。"
+  },
+  {
+   "name": "zhengce.gw",
+   "type": "sqlite",
+   "path": null,
+   "readonly": false,
+   "doc": "国务院政策文件库·国务院文件（国发/国办发/国函等）5,998 篇全文库（清单 6,217，217 篇为附件型/抽取失败页）。采集器 crawl_gongbao.py --t zhengcelibrary_gw。trigram FTS。 2026-09-13 采集，独立库未并入主库。"
+  },
+  {
+   "name": "zhengce.bm",
+   "type": "sqlite",
+   "path": null,
+   "readonly": false,
+   "doc": "国务院政策文件库·部门文件 12,685 篇全文库（清单 12,785，91 篇未采）。采集器 crawl_gongbao.py --t zhengcelibrary_bm。trigram FTS。 2026-09-13 采集，独立库未并入主库。"
+  },
+  {
+   "name": "zhengce.other",
+   "type": "sqlite",
+   "path": null,
+   "readonly": false,
+   "doc": "政策文件库·其他文件 8,119 篇（国务院政策文件库 otherfile 类；v7.7.2 新发现类别）。trigram FTS。 采集器 crawl_gongbao.py --t zhengcelibrary|zhengce（--cat 过滤）。2026-09-13 入库，独立库未并入主库；含接口元数据 cat/summary/puborg/pcode/fileno。"
+  },
+  {
+   "name": "zhengce.zy",
+   "type": "sqlite",
+   "path": null,
+   "readonly": false,
+   "doc": "政策文件库·中央文件 550 篇（zhongyangfile 类；t=zhengce 独有）。trigram FTS。 采集器 crawl_gongbao.py --t zhengcelibrary|zhengce（--cat 过滤）。2026-09-13 入库，独立库未并入主库；含接口元数据 cat/summary/puborg/pcode/fileno。"
+  },
+  {
+   "name": "samples.corpus",
+   "type": "sqlite",
+   "engine": "datahub/scripts/corpus/build_samples_db.py",
+   "path": null,
+   "readonly": false,
+   "doc": "五类文种范本池分层库：L0 raw_pages 原始层 / L1 samples 治理层 / L2 review_state 审核台账。14,701 篇（工作报告 5,089 / 消息 3,048 / 工作总结 2,633 / 调研报告 2,343 / 会议纪要 1,588）。trigram FTS（≥3 字用 MATCH，2 字须 LIKE 兜底）。**不并入主库检索**——主库用于写作引证，混入县区级范本会让引文出处变成基层文件。JSONL（govdoc_samples/collected.jsonl）是唯一事实源，本库为派生物，可整库重建。**存量 14,701 篇无 L0**（clean_version=legacy_no_raw、raw_ref 为 NULL）：旧采集器只存清洗结果、原文未留，属永久性数据缺陷；2026-09-14 起采集器已落 raw_text+raw_sha256+clean_version，新数据可整层重洗。同源同骨架近重复 1,931 篇，待按 skel 去重。",
+   "lineage": {
+    "source": "datahub/scripts/corpus/{probe_fast,sweep_deep,sweep_portals,sweep_list,sweep_columns}.py 采集 → collected.jsonl",
+    "rebuild": "python datahub/scripts/corpus/build_samples_db.py（--dry-run 预览 / --incremental 增量）"
+   }
+  }
+ ],
+ "rebuild_drill": {
+  "date": "2026-09-05",
+  "steps": {
+   "reindex": {
+    "status": "PASS",
+    "note": "TF-IDF+BM25 5569 篇重建成功，verify 索引覆盖 100%"
+   },
+   "extract": {
+    "status": "PASS",
+    "note": "论断库 21,320 条/覆盖 5,348 篇/6.9MB 重抽成功"
+   },
+   "embed": {
+    "status": "SKIP-GATED",
+    "note": "全量嵌入约 1-2h（5,569 篇×6 块），门禁验证通过：脚本可启动、环境变量门禁生效（无 GONGWEN_BGE_MODEL 时 exit 2 明确报错）；全量重放留维护窗口执行"
+   }
+  },
+  "qs_index_cold_load_s": 2.24,
+  "verifiable": "重建后 verify 23/23 全绿"
+ },
+ "install_matrix": {
+  "date": "2026-09-05",
+  "targets": [
+   {
     "target": null,
-    "executed": "2026-09-08",
-    "sources": [
-      "qs_articles.db",
-      "hs.db",
-      "jhsjk.db(002/45)",
-      "lilun.db(002/45)"
-    ],
-    "rows_total": 50092,
-    "note": "合并后旧四库保留为快照；正式读写走 gongwen_corpus.db",
-    "location_policy": "公文数据库族统一存放 <数据根>/（2026-09-09 用户拍板）；datahub/sqlite/ 原库转快照",
-    "derived_policy": "runtime 派生件（pkl/npy/statements）已迁入 <数据根>/（2026-09-09）"
+    "action": "全新安装 --no-deps + smoke",
+    "result": "PASS",
+    "detail": "安装 23/23 + 数据层 + verify 23/23 + 回归 45/45 + 冒烟 7/7"
+   },
+   {
+    "target": "WorkBuddy skills（~/.workbuddy/skills）",
+    "action": "探测（不安装，防污染真实环境）",
+    "result": "PASS",
+    "detail": "check-target 正确识别并回显安装目标"
+   },
+   {
+    "target": "无 BGE 模型环境",
+    "action": "干净 env 跑 qs 引擎",
+    "result": "PASS（显式降级）",
+    "detail": "词面检索正常返回，无崩溃；降级为 TF-IDF+BM25 双路"
+   }
+  ],
+  "fix_note": "v6.9.0 修复 install.py 技能清单仍为 41 旧清单（三轮合并后目录已不存在）→ 安装必败；已同步 23 清单 + ROOT_FILES 补 rules_regression/gongwen_tool"
+ },
+ "fts_fastpath": {
+  "table": "articles_fts",
+  "rows": 5569,
+  "built": "2026-09-05",
+  "query_latency_ms": 1.5,
+  "full_path_latency_ms": 3641,
+  "switch": "GONGWEN_FAST=1（缺表自动降级全量路）",
+  "incremental": "rebuild_fts.py --incremental；爬虫增量已自动联动（crawl_qiushi_incremental --rebuild 尾部）",
+  "eval_gate": "104 条 99%/MRR 0.974/gold 74.0%（20,680 篇语料实测）"
+ },
+ "judge_model": {
+  "default": "deepseek-v4-pro（GONGWEN_JUDGE_MODEL 可覆盖）",
+  "since": "v6.9.0",
+  "evidence": {
+   "mimo-v2.5": "判别一致率 1/3，四维区分度失效（A/C 档给分倒挂）→ 弃用于 judge",
+   "deepseek-v4-pro": "判别一致率 3/3，四维区分度 +8~+30（去AI味 +30 最显著）；6 篇双档实测 judge_results_v2_deepseek.json"
   },
-  "_packaged_note": "打包时已清空机器相关路径（data_root / bge_model / assets.json.assets[0].path / assets.json.assets[1].path / assets.json.assets[2].path / assets.json.assets[3].path / assets.json.assets[4].path / assets.json.assets[5].path / assets.json.assets[8].path / assets.json.assets[10].path / assets.json.assets[11].path / assets.json.assets[12].path / assets.json.assets[13].path / assets.json.assets[14].path / assets.json.assets[15].path / assets.json.install_matrix.targets[0].target / assets.json.distribution_zip.path / assets.json.databases.jhsjk.path / assets.json.databases.lilun.path / assets.json.merged.target）；请用环境变量 GONGWEN_DATA_ROOT 指向你的数据根"
+  "wiring_check": "mock 注入验证 judge_one 全程 model=deepseek-v4-pro PASS（2026-09-05）；真实链路待 opencode 周配额重置后复测（ch1/ch5 已 429）"
+ },
+ "distribution_zip": {
+  "path": null,
+  "files": 5945,
+  "size_mb": 257,
+  "built": "2026-09-05（批次1-3 修复后终版：version 去重 + 清单同步 + FTS 检查 + README 口径 + CHANGELOG 外置）",
+  "excluded": [
+   "backups_removed_20260904_archived_to_002",
+   "__pycache__"
+  ],
+  "smoke": "解压实测 verify 25 + 回归 45/45 + validate 23/23 + FTS 快路 + 增量幂等 全绿"
+ },
+ "databases": {
+  "jhsjk": {
+   "path": null,
+   "type": "sqlite",
+   "rows": 14901,
+   "chars_wan": 2223,
+   "desc": "人民网领袖人物数据库（2012-2026 要闻/讲话类）— 引用源",
+   "archive": "002/45 思想理论语料库",
+   "registered": "2026-09-08"
+  },
+  "lilun": {
+   "path": null,
+   "type": "sqlite",
+   "rows": 14253,
+   "desc": " lilun.cn 思想理论书籍库（277,167 万字）— 书籍行文蒸馏源",
+   "archive": "002/45 思想理论语料库",
+   "note": "scan_only=1 的 1,852 册为纯扫描无文本，蒸馏时跳过",
+   "registered": "2026-09-08"
+  }
+ },
+ "updated": "2026-09-13",
+ "merged": {
+  "target": null,
+  "executed": "2026-09-08",
+  "sources": [
+   "qs_articles.db",
+   "hs.db",
+   "jhsjk.db(002/45)",
+   "lilun.db(002/45)"
+  ],
+  "rows_total": 50092,
+  "note": "合并后旧四库保留为快照；正式读写走 gongwen_corpus.db",
+  "location_policy": "公文数据库族统一存放 <数据根>/（2026-09-09 用户拍板）；datahub/sqlite/ 原库转快照",
+  "derived_policy": "runtime 派生件（pkl/npy/statements）已迁入 <数据根>/（2026-09-09）"
+ },
+ "_packaged_note": "打包时已清空机器相关路径（data_root / bge_model / assets.json.assets[0].path / assets.json.assets[1].path / assets.json.assets[2].path / assets.json.assets[3].path / assets.json.assets[4].path / assets.json.assets[5].path / assets.json.assets[8].path / assets.json.assets[10].path / assets.json.assets[11].path / assets.json.assets[12].path / assets.json.assets[13].path / assets.json.assets[14].path / assets.json.assets[15].path / assets.json.install_matrix.targets[0].target / assets.json.distribution_zip.path / assets.json.databases.jhsjk.path / assets.json.databases.lilun.path / assets.json.merged.target）；请用环境变量 GONGWEN_DATA_ROOT 指向你的数据根"
 }

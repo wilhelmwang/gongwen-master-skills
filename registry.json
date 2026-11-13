@@ -433,7 +433,7 @@
    "compatibility": "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；数据引用依赖 qiushi-db（经 gongwen-master 路由）；版本 v7.1",
    "requires": {
     "master": "gongwen-master（路由与六步法）",
-    "data": "qiushi-db 数据中枢（地方 org_chart 机构名录用于节点单位实名引用）",
+    "data": "qiushi-db 数据中枢（机构名录由用户提供，用于节点单位实名引用）",
     "subskills": "govdoc-request(请示/批复)、govdoc-report(报告)、govdoc-plan(方案)、govdoc-letter(函)、govdoc-minutes(纪要)、govdoc-notice(通知)"
    },
    "validate": {

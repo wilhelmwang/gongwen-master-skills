@@ -280,22 +280,6 @@ def cmd_status(as_json=False):
         avail = cur.execute("SELECT COUNT(*) FROM articles WHERE content IS NOT NULL AND content<>''").fetchone()[0]
         latest = cur.execute('SELECT MAX(crawl_time) FROM articles').fetchone()[0]
         newest_pub = cur.execute('SELECT MAX(publish_date) FROM articles').fetchone()[0]
-        try:
-            hs_cols = [r[1] for r in cur.execute('PRAGMA table_info(hs_facts)')]
-            _allow = [c for c in hs_cols
-                      if c.lower() in ('updated_at', 'update_time', 'crawl_time', 'grab_time')]
-            if _allow and _allow[0].lower() == 'updated_at':
-                hs_latest = cur.execute('SELECT MAX(updated_at) FROM hs_facts').fetchone()[0]
-            elif _allow and _allow[0].lower() == 'update_time':
-                hs_latest = cur.execute('SELECT MAX(update_time) FROM hs_facts').fetchone()[0]
-            elif _allow and _allow[0].lower() == 'crawl_time':
-                hs_latest = cur.execute('SELECT MAX(crawl_time) FROM hs_facts').fetchone()[0]
-            elif _allow:
-                hs_latest = cur.execute('SELECT MAX(grab_time) FROM hs_facts').fetchone()[0]
-            else:
-                hs_latest = f'库内无时间列（列: {",".join(hs_cols[:6])}…）'
-        except Exception:
-            hs_latest = None
     finally:
         conn.close()
 
@@ -303,7 +287,6 @@ def cmd_status(as_json=False):
     rep['articles_searchable'] = avail
     rep['last_crawl_time'] = latest
     rep['newest_publish_date'] = newest_pub
-    rep['hs_facts_last_update'] = hs_latest
 
     # 索引 / 向量覆盖
     try:
@@ -360,7 +343,6 @@ def cmd_status(as_json=False):
     print(f'  主库文章    : {total} 篇（可检索 {avail}）')
     print(f'  最近抓取    : {latest or "未知"}')
     print(f'  最新发文日期: {newest_pub or "未知"}')
-    print(f'  地方指标更新: {hs_latest or "未知"}')
     print(f'  索引覆盖    : {rep["index_articles"]} 篇')
     print(f'  向量块      : {rep["vector_chunks"]} 块 × {rep["vector_dims"]} 维')
     print(f'  哈希边车    : {rep["hash_coverage"]}  建于 {rep["hash_built_at"] or "**尚未建立（跑 --hash-init）**"}')
@@ -375,7 +357,7 @@ def cmd_status(as_json=False):
     print('  运维承诺对应动作：')
     print('   ① 每周快照    → python gongwen_tool.py snapshot --keep 3')
     print('   ② 内容变更检测 → python freshness.py --hash-verify（边车由 --hash-init 建立）')
-    print('   ③ 年鉴季补录  → 4-5 月 / 10 月核对地方统计公报，补 hs_facts')
+    print('   ③ 季度补录    → 4-5 月 / 10 月为公开数据集中发布期，可择时更新语料')
     return 0
 
 

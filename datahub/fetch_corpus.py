@@ -61,7 +61,6 @@ CMDS = {
                ['datahub/scripts/qs/embed_qiushi_vec.py'],
                ['datahub/scripts/qs/rebuild_fts.py', 'incremental']],
     'hongqi': [['datahub/scripts/qs/crawl_hqwg.py', '--plan']],
-    'local': [['datahub/scripts/hs/hs_org_chart_ingest.py']],
 }
 
 
@@ -123,15 +122,10 @@ def run_hongqi():
                 [PY, 'datahub/scripts/qs/crawl_hqwg.py', '--plan'])
 
 
-def run_local():
-    return _run('地方机构名录与职责入库',
-                [PY, 'datahub/scripts/hs/hs_org_chart_ingest.py'])
-
-
 def main():
     ap = argparse.ArgumentParser(description='对外分发包语料取数入口（可执行）')
     ap.add_argument('--what', default='',
-                    help='policy / samples / qiushi / hongqi / local / all')
+                    help='policy / samples / qiushi / hongqi / all')
     ap.add_argument('--list', action='store_true')
     ap.add_argument('--dry', action='store_true', help='只打印命令，不执行')
     ap.add_argument('--issues', default='', help='qiushi 用：年,期,url|年,期,url')
@@ -174,8 +168,6 @@ def main():
             rc |= run_qiushi(a.issues)
         elif n == 'hongqi':
             rc |= run_hongqi()
-        elif n == 'local':
-            rc |= run_local()
         print('')
     print('取数完成。下一步：python release.py --quick（确认包仍自洽）')
     return 1 if rc else 0

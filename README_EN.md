@@ -15,7 +15,7 @@
 
 A skill built from Markdown instructions plus a Python retrieval engine, installable in WorkBuddy, Claude, Doubao, and other platforms that support Agent Skills. Once installed, say "write a notice", "draft a speech for the director", "tighten this paragraph", or "quality-check this document" — the skill identifies the document type, loads the matching rules, and queries source texts when needed.
 
-**It is not a prompt template.** A template hands you a paragraph to rewrite. This gives you 14,933 policy documents as a factual base, structural skeletons for 16 document types, and executable self-checks and evaluations. Draft, verify, trace.
+**It is not a prompt template.** A template hands you a paragraph to rewrite. This gives you 14,865 policy documents as a factual base, structural skeletons for 16 document types, and executable self-checks and evaluations. Draft, verify, trace.
 
 ---
 
@@ -104,7 +104,7 @@ The writing rules, style models, and claim library were not invented. They were 
 | *Qiushi* and *Red Flag Manuscripts* | **5,820 articles / 26.97M characters** | Style and argumentation-pattern distillation, claim and quotation extraction, terminology comparison |
 | Leadership speeches and reports | 14,901 articles / 24.58M characters | Authoritative phrasing traceback, formulation verification |
 | Policy and governance monographs | 11 books / 92 chapters / 3.04M characters | Governance logic and structural distillation (nine book styles) |
-| State Council Gazette | 14,863 articles / 66.70M characters | Document skeletons, clause-style drafting, bundled retrieval |
+| State Council Gazette | 14,795 articles / 65.85M characters | Document skeletons, clause-style drafting, bundled retrieval |
 
 **Distilled outputs**
 
@@ -129,7 +129,7 @@ The hard part of Chinese official writing is not vocabulary. It is whether a for
 
 ### 4.1 It has a corpus, not just model memory
 
-Models invent document numbers and formulations; a corpus does not. The training corpora are described above. What ships for direct retrieval is **14,933 central-government public documents — 66.76M characters spanning 2000–2026, with 100% URL and issuing-body coverage** (details in Section 5).
+Models invent document numbers and formulations; a corpus does not. The training corpora are described above. What ships for direct retrieval is **14,865 central-government public documents — 65.90M characters spanning 2000–2026, with 100% URL and issuing-body coverage** (details in Section 5).
 
 When drafting "pursuant to … (Guobanfa [20XX] No. X)", look it up first.
 
@@ -175,7 +175,7 @@ No network access by default except for explicit fetch commands. Retrieval, draf
 
 | Source | Documents | Nature |
 |---|---|---|
-| State Council Gazette | 14,863 | Administrative documents published by the State Council, its General Office, and ministries |
+| State Council Gazette | 14,795 | Administrative documents published by the State Council, its General Office, and ministries |
 | National laws and regulations database | 50 | Statutory texts |
 | Central ministry policies | 20 | Normative documents |
 
@@ -193,7 +193,7 @@ Remaining: orders 328, announcements 298, government work reports 38, circulars 
 **Schema**
 
 ```
-articles                          Main table (14,933 rows)
+articles                          Main table (14,865 rows)
 ├── id / title / author           Title, issuing body
 ├── source / data_source          Source and collection channel
 ├── publish_date / issue_year     Publication date, year
@@ -222,7 +222,7 @@ WHERE content LIKE '%新质生产力%' LIMIT 10;
 SELECT author, COUNT(*) FROM articles GROUP BY 1 ORDER BY 2 DESC LIMIT 10;
 ```
 
-**Known limitations**: 50 statutory entries contain only a title, no body text; 640 entries are shorter than 200 characters (mostly appointment and reply notices) and should be avoided as long-form references. The remaining 12,081 exceed 1,000 characters.
+**Known limitations**: 50 statutory entries contain only a title, no body text; 589 entries are shorter than 200 characters (mostly appointment and reply notices) and should be avoided as long-form references. The remaining 12,022 exceed 1,000 characters.
 
 Questions about schema design, collection methodology, retrieval implementation, or corpus governance are welcome by email (see Section 12).
 

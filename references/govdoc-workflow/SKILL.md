@@ -10,7 +10,7 @@ description: "当用户的请求涉及跨部门公文流程时使用我：如「
 compatibility: "Designed for WorkBuddy/Claude/豆包等 agent 技能平台（standalone 包）；数据引用依赖 qiushi-db（经 gongwen-master 路由）；版本 v7.1"
 requires:
   master: "gongwen-master（路由与六步法）"
-  data: "qiushi-db 数据中枢（地方 org_chart 机构名录用于节点单位实名引用）"
+  data: "qiushi-db 数据中枢（机构名录由用户提供，用于节点单位实名引用）"
   subskills: "govdoc-request(请示/批复)、govdoc-report(报告)、govdoc-plan(方案)、govdoc-letter(函)、govdoc-minutes(纪要)、govdoc-notice(通知)"
 permissions:
   fs_write: "无"
@@ -37,7 +37,7 @@ copyright: "Gongwen Master Contributors © Apache-2.0"
 1. 用户说场景（"我要申请预算做个系统"）→ 按 `references/scenarios/` 匹配最接近的场景卡；
 2. 输出**流程节点清单**：每节点含【责任单位 → 前置条件 → 公文文种 → 起草要点】；
 3. 用户确认后，逐节点调对应 govdoc-* 技能起草（如"第一步的请示"→ govdoc-request）；
-4. 数据引用（项目单位全称、机构名）走 qiushi-db 地方 org_chart（保证"地方数据局"这类实名准确）。
+4. 数据引用（项目单位全称、机构名）以用户提供的本地机构名录为准，不预设任何城市的实名。
 
 ## 核心场景（v1.2 收录 12 个，见 references/scenarios/）
 
@@ -58,10 +58,8 @@ copyright: "Gongwen Master Contributors © Apache-2.0"
 
 ## 部门定制场景（v1.3 新增：职责 → 场景生成）
 
-基于 org_duties（机构职责表）可为**每个部门**生成定制场景卡：
+若用户提供了部门职责材料，可为**每个部门**生成定制场景卡：
 - 生成规则：`references/duty-to-scenario.md`（职权动词→角色判断→四类场景映射）
-- 已生成：`references/scenarios/departments/地方数据局-scenarios.md`（样例）
-- 批量补录职责：`datahub/scripts/hs/hs_duties_ingest.py --scan / --url`（编办官网职责专栏 + 部门预算公开页双轨）
 - 用户点名部门（如「给财政局生成场景」）→ 按 d2s 规则生成 → 存 departments/ → 门禁回归
 
 ## 法规依据层
@@ -71,5 +69,5 @@ copyright: "Gongwen Master Contributors © Apache-2.0"
 ## 边界
 
 - 各地规定差异较大（金额阈值/审批主体/简化条件），本技能给出**通用骨架 + 可替换参数**（金额档位、节点单位名），用户应按本地最新文件校正；
-- 地方本地机构实名通过 org_chart 保证（如"地方数据局"），其他城市需用户自填；
+- 机构实名由用户提供，不内置任何城市或部门清单；
 - 不替代审批部门的实质性审查，只解决「该写什么公文、怎么写」。
